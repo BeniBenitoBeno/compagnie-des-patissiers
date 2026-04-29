@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nos gammes — Compagnie des Pâtissiers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { noir:'#1A1A18', ivoire:'#F7F4EE', gris:'#6B6860', or:'#F2C94C' },
+          fontFamily: { display:['"Playfair Display"','serif'], sans:['Inter','sans-serif'] },
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Inter',sans-serif; background:#F7F4EE; color:#1A1A18; -webkit-font-smoothing:antialiased; }
+
+    #nav { background:rgba(26,26,24,0.96); backdrop-filter:blur(10px); }
+    .nav-link { font-family:'Inter',sans-serif; font-weight:500; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:rgba(247,244,238,0.75); transition:color 0.2s ease; }
+    .nav-link:hover, .nav-link.current { color:#F7F4EE; }
+    .nav-link:focus-visible { outline:1.5px solid #F2C94C; outline-offset:4px; border-radius:1px; }
+
+    #mobile-menu { background:rgba(26,26,24,0.97); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); transform:translateY(-8px); opacity:0; pointer-events:none; transition:transform 0.25s ease, opacity 0.2s ease; }
+    #mobile-menu.open { transform:translateY(0); opacity:1; pointer-events:auto; }
+
+    .btn-primary { display:inline-block; background:#1A1A18; color:#F7F4EE; font-family:'Inter',sans-serif; font-weight:500; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; padding:12px 28px; border-radius:2px; transition:background 0.2s ease, transform 0.18s ease; }
+    .btn-primary:hover { background:#2e2e2b; transform:translateY(-1px); }
+    .btn-primary:active { transform:translateY(0); }
+
+    .link-or { font-family:'Inter',sans-serif; font-weight:500; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; border-bottom:1px solid #F2C94C; padding-bottom:1px; transition:opacity 0.2s ease; }
+    .link-or:hover { opacity:0.65; }
+
+    .card-img { transition:transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .product-card:hover .card-img { transform:scale(1.04); }
+    .product-card { cursor:pointer; }
+    .product-card:focus-visible { outline:1.5px solid #F2C94C; outline-offset:4px; border-radius:2px; }
+
+    .badge-new { display:inline-block; background:#1A1A18; color:#F7F4EE; font-family:'Inter',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; padding:4px 10px; border-radius:1px; }
+    .badge-cat { display:inline-block; background:rgba(255,255,255,0.30); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:0.5px solid rgba(255,255,255,0.55); color:rgba(26,26,24,0.90); font-family:'Inter',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.10em; text-transform:uppercase; padding:4px 10px; border-radius:1px; }
+    .badge-or { display:inline-block; background:#F2C94C; color:#1A1A18; font-family:'Inter',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.10em; text-transform:uppercase; padding:4px 10px; border-radius:1px; }
+
+    .accent-line { display:block; width:32px; height:1px; background:#F2C94C; }
+    .footer-link { font-family:'Inter',sans-serif; font-weight:300; font-size:13px; color:rgba(247,244,238,0.5); transition:color 0.2s ease; }
+    .footer-link:hover { color:rgba(247,244,238,0.9); }
+
+    /* Tab bar */
+    .tab-link { display:inline-block; padding:14px 0 12px; font-family:'Inter',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.07em; text-transform:uppercase; white-space:nowrap; color:#6B6860; border-bottom:2px solid transparent; transition:color 0.2s ease, border-color 0.2s ease; }
+    .tab-link:hover { color:#1A1A18; }
+    .tab-link.active { color:#1A1A18; border-bottom-color:#F2C94C; }
+    #tab-bar-inner { scrollbar-width:none; }
+    #tab-bar-inner::-webkit-scrollbar { display:none; }
+
+    .gamme-section { scroll-margin-top:124px; }
+
+    /* Modal */
+    #modal-overlay { position:fixed; inset:0; z-index:200; display:flex; align-items:flex-end; background:rgba(0,0,0,0.72); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); opacity:0; pointer-events:none; transition:opacity 0.25s ease; }
+    #modal-overlay.open { opacity:1; pointer-events:auto; }
+    #modal-container { position:relative; width:100%; background:#fff; transform:translateY(24px); transition:transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94); max-height:92vh; overflow-y:auto; }
+    #modal-overlay.open #modal-container { transform:translateY(0); }
+    @media(min-width:768px) {
+      #modal-overlay { align-items:center; justify-content:center; }
+      #modal-container { max-width:760px; border-radius:2px; max-height:85vh; overflow:hidden; }
+      #modal-grid { display:grid; grid-template-columns:45% 55%; }
+      #modal-content-col { overflow-y:auto; max-height:85vh; }
+    }
+    #modal-img-col { position:relative; min-height:260px; background:#F7F4EE; }
+    #modal-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav" class="fixed top-0 left-0 right-0 z-50">
+  <div class="px-8 md:px-14 py-5 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="brand_assets/logos/logo.png" alt="Compagnie des Pâtissiers" class="h-9 w-9 object-contain" style="filter:invert(1);" />
+      <div class="leading-tight">
+        <span class="block font-sans font-medium text-white" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Compagnie des Pâtissiers</span>
+        <span class="block font-sans font-light text-white/40" style="font-size:9px; letter-spacing:0.06em; text-transform:uppercase;">Groupe MAS</span>
+      </div>
+    </a>
+    <ul class="hidden md:flex items-center gap-8">
+      <li><a href="index.html#positionnement" class="nav-link">Qui sommes-nous</a></li>
+      <li><a href="nos-gammes.html" class="nav-link current">Nos gammes</a></li>
+      <li><a href="index.html#innovation" class="nav-link">Innovation</a></li>
+      <li><a href="index.html#contact" class="nav-link px-4 py-2" style="border:0.5px solid rgba(247,244,238,0.25); border-radius:2px;">Contact</a></li>
+    </ul>
+    <button id="menu-toggle" class="md:hidden flex flex-col justify-center gap-[6px] w-8 h-8" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span class="block w-5 h-px bg-white/80"></span>
+      <span class="block w-5 h-px bg-white/80"></span>
+      <span class="block w-5 h-px bg-white/80"></span>
+    </button>
+  </div>
+  <div id="mobile-menu" class="md:hidden px-8 pb-7 flex flex-col gap-5">
+    <a href="index.html#positionnement" class="nav-link py-1">Qui sommes-nous</a>
+    <a href="nos-gammes.html" class="nav-link py-1 text-white">Nos gammes</a>
+    <a href="index.html#innovation" class="nav-link py-1">Innovation</a>
+    <a href="index.html#contact" class="nav-link py-2 px-4 self-start" style="border:0.5px solid rgba(247,244,238,0.25); border-radius:2px;">Contact</a>
+  </div>
+</nav>
+
+
+<!-- PAGE HEADER -->
+<section class="bg-noir" style="padding-top:104px; padding-bottom:56px;">
+  <div class="max-w-5xl mx-auto px-8 md:px-14">
+    <p class="font-sans font-medium text-gris mb-6" style="font-size:11px; letter-spacing:0.07em; text-transform:uppercase;">
+      <a href="index.html" class="hover:text-white/60 transition-colors duration-200">Accueil</a>
+      <span class="mx-2 opacity-40">→</span>Nos gammes
+    </p>
+    <h1 class="font-display text-white mb-4" style="font-size:clamp(38px,6vw,62px); letter-spacing:-0.02em; line-height:1.08;">Nos gammes</h1>
+    <p class="font-sans font-light text-white/55 max-w-lg" style="font-size:15px; line-height:1.75;">
+      Flans crus, fonds de tarte et clafoutis — des gammes complètes, prêtes à cuire, conçues pour les professionnels de la boulangerie et de la restauration.
+    </p>
+  </div>
+</section>
+
+
+<!-- STICKY TAB BAR -->
+<div class="sticky z-40 bg-white" style="top:76px; border-bottom:1px solid rgba(26,26,24,0.08);">
+  <div id="tab-bar-inner" class="max-w-5xl mx-auto px-8 md:px-14 flex gap-8 overflow-x-auto">
+    <a href="#flans-crus"     class="tab-link active">Flans crus</a>
+    <a href="#fonds-de-tarte" class="tab-link">Fonds de tarte</a>
+    <a href="#clafoutis-crus" class="tab-link">Clafoutis crus</a>
+  </div>
+</div>
+
+
+<!-- ── GAMME 1 : FLANS CRUS ── -->
+<section id="flans-crus" class="gamme-section">
+  <div class="relative overflow-hidden" style="height:300px;">
+    <img src="brand_assets/photography/products/flans-crus/_hero.jpg" alt="Flans crus" class="w-full h-full object-cover" />
+    <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.45) 100%);"></div>
+    <div class="relative z-10 h-full flex flex-col justify-end px-8 md:px-14 pb-10">
+      <span class="badge-cat mb-4">Cru surgelé</span>
+      <h2 class="font-display text-white mb-2" style="font-size:clamp(26px,4vw,40px); letter-spacing:-0.02em; line-height:1.1;">Flans crus</h2>
+      <p class="font-sans font-light text-white/60" style="font-size:13px;">7 références · Du classique vanille à la pistache naturelle</p>
+    </div>
+  </div>
+  <div class="bg-white py-12 px-8 md:px-14">
+    <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10">
+
+      <div class="product-card group" data-product="flan-pistache" tabindex="0" role="button" aria-label="Voir Flan Pistache">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#F7F4EE;">
+          <img src="brand_assets/photography/products/flans-crus/flan-pistache.png" alt="Flan Pistache" class="card-img w-full h-full object-cover" />
+          <div class="absolute top-3 left-3"><span class="badge-new">Nouveauté</span></div>
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Flan Pistache</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Pistache naturelle, sans arôme artificiel.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="flan-ancienne" tabindex="0" role="button" aria-label="Voir Flan à l'ancienne">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#F7F4EE;">
+          <img src="brand_assets/photography/products/flans-crus/flan-a-lancienne.png" alt="Flan à l'ancienne" class="card-img w-full h-full object-cover" />
+          <div class="absolute top-3 left-3"><span class="badge-or">Innovation</span></div>
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Flan à l'ancienne</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Pâte brisée, appareil vanille, croûte caramélisée.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="flan-classique" tabindex="0" role="button" aria-label="Voir Flan Classique">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#F7F4EE;">
+          <img src="brand_assets/photography/products/flans-crus/flan-classique.jpg" alt="Flan Classique" class="card-img w-full h-full object-cover" />
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Flan Classique</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">La référence. Vanille Bourbon, pâte sucrée dorée.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="flan-pur-beurre-premium" tabindex="0" role="button" aria-label="Voir Flan Pur Beurre Premium">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#F7F4EE;">
+          <img src="brand_assets/photography/products/flans-crus/flan-pur-beurre-premium.jpg" alt="Flan Pur Beurre Premium" class="card-img w-full h-full object-cover" />
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Flan Pur Beurre Premium</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">100% beurre AOP, lait entier. Texture fondante.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="flan-cremeux-pur-beurre" tabindex="0" role="button" aria-label="Voir Flan Crémeux Pur Beurre">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#F7F4EE;">
+          <img src="brand_assets/photography/products/flans-crus/flan-cremeux-pur-beurre.jpg" alt="Flan Crémeux Pur Beurre" class="card-img w-full h-full object-cover" />
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Flan Crémeux Pur Beurre</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Onctueux, tenue parfaite après cuisson.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="flan-chocolat" tabindex="0" role="button" aria-label="Voir Flan Chocolat">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#F7F4EE;">
+          <img src="brand_assets/photography/products/flans-crus/flan-chocolat.jpg" alt="Flan Chocolat" class="card-img w-full h-full object-cover" />
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Flan Chocolat</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Chocolat noir intense, texture fondante.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="flan-coco" tabindex="0" role="button" aria-label="Voir Flan Coco">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#F7F4EE;">
+          <img src="brand_assets/photography/products/flans-crus/flan-coco.png" alt="Flan Coco" class="card-img w-full h-full object-cover" />
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Flan Coco</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Lait de coco naturel, goût franc et sucré.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ── GAMME 2 : FONDS DE TARTE ── -->
+<section id="fonds-de-tarte" class="gamme-section">
+  <div class="relative overflow-hidden" style="height:300px;">
+    <img src="brand_assets/photography/products/fonds-de-tarte/_hero.jpg" alt="Fonds de tarte" class="w-full h-full object-cover" />
+    <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.45) 100%);"></div>
+    <div class="relative z-10 h-full flex flex-col justify-end px-8 md:px-14 pb-10">
+      <span class="badge-cat mb-4">Cru surgelé</span>
+      <h2 class="font-display text-white mb-2" style="font-size:clamp(26px,4vw,40px); letter-spacing:-0.02em; line-height:1.1;">Fonds de tarte</h2>
+      <p class="font-sans font-light text-white/60" style="font-size:13px;">10 références · Sucrée, sablée, brisée — ronds, sticks, couronnes</p>
+    </div>
+  </div>
+  <div class="bg-ivoire py-12 px-8 md:px-14">
+    <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10">
+
+      <div class="product-card group" data-product="couronne" tabindex="0" role="button" aria-label="Voir Couronne Feuilletée">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#fff;">
+          <img src="brand_assets/photography/products/fonds-de-tarte/couronne.png" alt="Couronne Feuilletée" class="card-img w-full h-full object-cover" />
+          <div class="absolute top-3 left-3"><span class="badge-new">Nouveauté</span></div>
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Couronne Feuilletée</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Format événementiel, pâte feuilletée.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="garni-frangipane" tabindex="0" role="button" aria-label="Voir Fond Garni Frangipane">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#fff;">
+          <img src="brand_assets/photography/products/fonds-de-tarte/garni-frangipane.png" alt="Fond Garni Frangipane" class="card-img w-full h-full object-cover" />
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Garni Frangipane</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Fond sucrée, couche de frangipane. Prêt à garnir.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="garni-frangipane-stick" tabindex="0" role="button" aria-label="Voir Garni Frangipane Stick">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#fff;">
+          <img src="brand_assets/photography/products/fonds-de-tarte/garni-frangipane-stick.png" alt="Garni Frangipane Stick" class="card-img w-full h-full object-cover" />
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Garni Frangipane Stick</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Format stick allongé, garni frangipane.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="garni-creme-legere" tabindex="0" role="button" aria-label="Voir Garni Crème Légère">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#fff;">
+          <img src="brand_assets/photography/products/fonds-de-tarte/garni-creme-legere.png" alt="Garni Crème Légère" class="card-img w-full h-full object-cover" />
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Garni Crème Légère</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Fond sucrée, couche de crème légère.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="sucree-cacao" tabindex="0" role="button" aria-label="Voir Fond Sucrée Cacao">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#fff;">
+          <img src="brand_assets/photography/products/fonds-de-tarte/sucree-cacao-stick.png" alt="Fond Sucrée Cacao" class="card-img w-full h-full object-cover" />
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Fond Sucrée Cacao</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Pâte sucrée cacao, couleur et goût intenses.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="sucree-rond" tabindex="0" role="button" aria-label="Voir Fond Sucrée">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#fff;">
+          <img src="brand_assets/photography/products/fonds-de-tarte/sucree-rond.jpg" alt="Fond Sucrée" class="card-img w-full h-full object-cover" />
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Fond Sucrée</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">La base universelle. Texture sablée fine.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="sucree-stick" tabindex="0" role="button" aria-label="Voir Fond Sucrée Stick">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#fff;">
+          <img src="brand_assets/photography/products/fonds-de-tarte/sucree-stick.jpg" alt="Fond Sucrée Stick" class="card-img w-full h-full object-cover" />
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Fond Sucrée Stick</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Pâte sucrée en format stick allongé.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="sablee-stick" tabindex="0" role="button" aria-label="Voir Fond Sablée Stick">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#fff;">
+          <img src="brand_assets/photography/products/fonds-de-tarte/sablee-stick.jpg" alt="Fond Sablée Stick" class="card-img w-full h-full object-cover" />
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Fond Sablée Stick</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Pâte sablée, fondante et friable. Haut de gamme.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="brisee-rond" tabindex="0" role="button" aria-label="Voir Fond Brisée">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#fff;">
+          <img src="brand_assets/photography/products/fonds-de-tarte/brisee-rond.jpg" alt="Fond Brisée" class="card-img w-full h-full object-cover" />
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Fond Brisée</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Goût neutre, idéale tartes salées et quiches.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="brisee-stick" tabindex="0" role="button" aria-label="Voir Fond Brisée Stick">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#fff;">
+          <img src="brand_assets/photography/products/fonds-de-tarte/brisee-stick.jpg" alt="Fond Brisée Stick" class="card-img w-full h-full object-cover" />
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Fond Brisée Stick</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Pâte brisée en stick. Polyvalente, tartes bandes.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ── GAMME 3 : CLAFOUTIS CRUS ── -->
+<section id="clafoutis-crus" class="gamme-section">
+  <div class="relative overflow-hidden" style="height:300px;">
+    <img src="brand_assets/photography/products/clafoutis-crus/_hero.png" alt="Clafoutis crus" class="w-full h-full object-cover" />
+    <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.45) 100%);"></div>
+    <div class="relative z-10 h-full flex flex-col justify-end px-8 md:px-14 pb-10">
+      <span class="badge-cat mb-4">Cru surgelé</span>
+      <h2 class="font-display text-white mb-2" style="font-size:clamp(26px,4vw,40px); letter-spacing:-0.02em; line-height:1.1;">Clafoutis crus</h2>
+      <p class="font-sans font-light text-white/60" style="font-size:13px;">4 références · La saison en format professionnel</p>
+    </div>
+  </div>
+  <div class="bg-white py-12 px-8 md:px-14">
+    <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10">
+
+      <div class="product-card group" data-product="clafoutis-griottes" tabindex="0" role="button" aria-label="Voir Clafoutis Griottes">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#F7F4EE;">
+          <img src="brand_assets/photography/products/clafoutis-crus/griottes.png" alt="Clafoutis Griottes" class="card-img w-full h-full object-cover" />
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Clafoutis Griottes</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Griottes entières, appareil lait entier et œufs frais.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="clafoutis-framboises" tabindex="0" role="button" aria-label="Voir Clafoutis Framboises Rhubarbe">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#F7F4EE;">
+          <img src="brand_assets/photography/products/clafoutis-crus/framboises-rhubarbe.png" alt="Clafoutis Framboises Rhubarbe" class="card-img w-full h-full object-cover" />
+          <div class="absolute top-3 left-3"><span class="badge-new">Nouveauté</span></div>
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Framboises Rhubarbe</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Acidité franche, goût estival. Fond sucrée.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="clafoutis-poires-chocolat" tabindex="0" role="button" aria-label="Voir Clafoutis Poires Chocolat">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#F7F4EE;">
+          <img src="brand_assets/photography/products/clafoutis-crus/poires-chocolat.png" alt="Clafoutis Poires Chocolat" class="card-img w-full h-full object-cover" />
+          <div class="absolute top-3 left-3"><span class="badge-new">Nouveauté</span></div>
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Poires Chocolat</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Poires Williams, pépites chocolat noir.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+      <div class="product-card group" data-product="clafoutis-pommes" tabindex="0" role="button" aria-label="Voir Clafoutis Pommes">
+        <div class="relative overflow-hidden mb-4" style="height:220px; border-radius:2px; background:#F7F4EE;">
+          <img src="brand_assets/photography/products/clafoutis-crus/pommes.png" alt="Clafoutis Pommes" class="card-img w-full h-full object-cover" />
+        </div>
+        <h3 class="font-display text-lg text-noir mb-1">Clafoutis Pommes</h3>
+        <p class="font-sans font-light text-gris text-sm mb-3" style="line-height:1.65;">Pommes fondantes, note cannelle. Idéal automne-hiver.</p>
+        <span class="link-or text-noir">Voir le détail →</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA CONTACT -->
+<section class="bg-noir py-16 md:py-20 px-8 md:px-14">
+  <div class="max-w-xl mx-auto text-center">
+    <h2 class="font-display text-white mb-4" style="font-size:clamp(26px,4vw,38px); letter-spacing:-0.02em; line-height:1.15;">
+      Vous souhaitez commander ?
+    </h2>
+    <p class="font-sans font-light text-white/55 mb-8" style="font-size:15px; line-height:1.75;">
+      Nos équipes commerciales étudient vos besoins et vous proposent les formats adaptés à votre activité.
+    </p>
+    <a href="index.html#contact" class="btn-primary">Nous contacter →</a>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="bg-noir px-8 md:px-14 lg:px-20" style="border-top:0.5px solid rgba(255,255,255,0.06);">
+  <div class="max-w-5xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-8 md:gap-12 py-12 md:py-14" style="border-bottom:0.5px solid rgba(255,255,255,0.08);">
+      <div class="md:col-span-1">
+        <img src="brand_assets/logos/logo.png" alt="Compagnie des Pâtissiers" class="h-12 w-12 mb-5 object-contain" style="filter:invert(1);" />
+        <p class="font-sans font-medium text-white mb-1" style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase;">Compagnie des Pâtissiers</p>
+        <p class="font-sans font-light text-gris text-sm">L'artisan à grande échelle</p>
+        <p class="font-sans font-light text-gris mt-3" style="font-size:12px;">Filiale du Groupe MAS<br>French Quality Food</p>
+      </div>
+      <div>
+        <p class="font-sans font-medium text-gris mb-5" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Gammes</p>
+        <ul class="space-y-3">
+          <li><a href="#flans-crus"     class="footer-link">Flans crus</a></li>
+          <li><a href="#fonds-de-tarte" class="footer-link">Fonds de tarte</a></li>
+          <li><a href="#clafoutis-crus" class="footer-link">Clafoutis crus</a></li>
+          <li><a href="index.html#gammes" class="footer-link">Bake-off</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-sans font-medium text-gris mb-5" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Navigation</p>
+        <ul class="space-y-3">
+          <li><a href="index.html#positionnement" class="footer-link">Qui sommes-nous</a></li>
+          <li><a href="index.html#innovation"     class="footer-link">Innovation</a></li>
+          <li><a href="index.html"                class="footer-link">Accueil</a></li>
+          <li><a href="#"                         class="footer-link">Mentions légales</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-sans font-medium text-gris mb-5" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Contact</p>
+        <p class="font-sans font-light text-gris text-sm mb-4" style="line-height:1.7;">Professionnels &amp; distributeurs<br>Du lundi au vendredi, 8h–18h</p>
+        <a href="mailto:contact@compagniedespatissiers.com" class="link-or text-white/70" style="font-size:11px;">Nous écrire →</a>
+      </div>
+    </div>
+    <div class="py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+      <p class="font-sans font-light text-gris" style="font-size:12px;">© 2025 Compagnie des Pâtissiers — Tous droits réservés</p>
+      <p class="font-sans font-light text-gris" style="font-size:12px;">Une marque du <span class="text-white/40">Groupe MAS</span></p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- MODAL FICHE PRODUIT -->
+<div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+  <div id="modal-container">
+    <div id="modal-grid">
+      <div id="modal-img-col">
+        <img id="modal-img" alt="" />
+        <div id="modal-badge-wrap" class="absolute top-4 left-4"></div>
+      </div>
+      <div id="modal-content-col" class="p-8 md:p-10 flex flex-col">
+        <p id="modal-category" class="font-sans font-medium text-gris mb-3" style="font-size:11px; letter-spacing:0.10em; text-transform:uppercase;"></p>
+        <h2 id="modal-name" class="font-display text-noir mb-4" style="font-size:clamp(22px,3vw,30px); letter-spacing:-0.01em; line-height:1.15;"></h2>
+        <p id="modal-description" class="font-sans font-light text-gris mb-6" style="font-size:14px; line-height:1.8;"></p>
+        <div class="space-y-4 mb-8 py-5" style="border-top:0.5px solid rgba(26,26,24,0.10); border-bottom:0.5px solid rgba(26,26,24,0.10);">
+          <div>
+            <p class="font-sans font-medium text-noir mb-1" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Formats disponibles</p>
+            <p id="modal-formats" class="font-sans font-light text-gris" style="font-size:13px;"></p>
+          </div>
+          <div>
+            <p class="font-sans font-medium text-noir mb-1" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Conditionnement</p>
+            <p id="modal-packaging" class="font-sans font-light text-gris" style="font-size:13px;"></p>
+          </div>
+        </div>
+        <a href="index.html#contact" class="btn-primary self-start">Demander un devis →</a>
+      </div>
+    </div>
+    <button id="modal-close" class="absolute top-3 right-3 flex items-center justify-center text-gris hover:text-noir transition-colors duration-200" style="width:32px; height:32px; font-size:18px; background:rgba(247,244,238,0.95); border-radius:1px;" aria-label="Fermer">✕</button>
+  </div>
+</div>
+
+
+<script>
+const products = {
+  'flan-pistache':         { name:'Flan Pistache',          category:'Flans crus',      image:'brand_assets/photography/products/flans-crus/flan-pistache.png',          badge:'new', badgeText:'Nouveauté', description:'Appareil flan à base de pistache naturelle, sans arôme artificiel. Onctuosité et couleur verte naturelle — un produit phare qui se distingue en vitrine.',                                            formats:'Ø85 mm individuel · plaque 6×6',       packaging:'30 pièces / boîte · surgelé cru' },
+  'flan-ancienne':         { name:"Flan à l'ancienne",      category:'Flans crus',      image:'brand_assets/photography/products/flans-crus/flan-a-lancienne.png',         badge:'or',  badgeText:'Innovation', description:"Recette classique revisitée : pâte brisée, appareil vanille Bourbon, croûte légèrement caramélisée à la cuisson. Un retour aux sources du flan pâtissier.",             formats:'Ø90 mm · Ø65 mm mini',                packaging:'24 pièces / boîte · surgelé cru' },
+  'flan-classique':        { name:'Flan Classique',         category:'Flans crus',      image:'brand_assets/photography/products/flans-crus/flan-classique.jpg',           badge:null,                 description:'La référence. Appareil vanille Bourbon, pâte sucrée dorée. Disponible en plusieurs formats pour s\'adapter à tous les points de vente.',                                    formats:'Ø85 mm · Ø65 mm · plaque',           packaging:'24–30 pièces / boîte · surgelé cru' },
+  'flan-pur-beurre-premium':{ name:'Flan Pur Beurre Premium',category:'Flans crus',     image:'brand_assets/photography/products/flans-crus/flan-pur-beurre-premium.jpg',  badge:null,                 description:'Recette premium, 100% beurre AOP, lait entier. Texture fondante et goût riche — la référence haut de gamme de la gamme flans crus.',                                         formats:'Ø90 mm individuel',                   packaging:'24 pièces / boîte · surgelé cru' },
+  'flan-cremeux-pur-beurre':{ name:'Flan Crémeux Pur Beurre',category:'Flans crus',     image:'brand_assets/photography/products/flans-crus/flan-cremeux-pur-beurre.jpg',  badge:null,                 description:'Plus onctueux que le classique, avec une tenue parfaite après cuisson. Le choix des professionnels pour une présentation soignée en vitrine.',                               formats:'Ø85 mm individuel · plaque',          packaging:'30 pièces / boîte · surgelé cru' },
+  'flan-chocolat':         { name:'Flan Chocolat',          category:'Flans crus',      image:'brand_assets/photography/products/flans-crus/flan-chocolat.jpg',            badge:null,                 description:'Appareil chocolat noir intense, texture fondante et goût franc. Idéal pour les amateurs de chocolat, en format individuel prêt à cuire.',                                    formats:'Ø85 mm individuel',                   packaging:'30 pièces / boîte · surgelé cru' },
+  'flan-coco':             { name:'Flan Coco',              category:'Flans crus',      image:'brand_assets/photography/products/flans-crus/flan-coco.png',                badge:null,                 description:'Appareil coco au lait de coco naturel, goût franc et sucré. Idéal pour les vitrines estivales ou les offres exotiques.',                                                     formats:'Ø85 mm individuel',                   packaging:'30 pièces / boîte · surgelé cru' },
+  'couronne':              { name:'Couronne Feuilletée',    category:'Fonds de tarte',  image:'brand_assets/photography/products/fonds-de-tarte/couronne.png',             badge:'new', badgeText:'Nouveauté', description:'Fond de tarte en couronne, pâte feuilletée. Format événementiel pour galettes, tartes de saison et présentations premium en vitrine.',                              formats:'Ø240 mm couronne',                    packaging:'12 pièces / boîte · surgelé cru' },
+  'garni-frangipane':      { name:'Garni Frangipane',       category:'Fonds de tarte',  image:'brand_assets/photography/products/fonds-de-tarte/garni-frangipane.png',     badge:null,                 description:'Fond sucrée garni d\'une couche de frangipane. Prêt à cuire, idéal pour les tartelettes aux fruits. Gain de temps en production.',                                          formats:'Ø80 mm rond',                         packaging:'36 pièces / boîte · surgelé cru' },
+  'garni-frangipane-stick':{ name:'Garni Frangipane Stick', category:'Fonds de tarte',  image:'brand_assets/photography/products/fonds-de-tarte/garni-frangipane-stick.png',badge:null,                description:'Fond stick garni frangipane. Le format allongé idéal pour les tartes bandes, entremets rectangulaires et vitrines élaborées.',                                             formats:'110×35 mm stick',                     packaging:'40 pièces / boîte · surgelé cru' },
+  'garni-creme-legere':    { name:'Garni Crème Légère',     category:'Fonds de tarte',  image:'brand_assets/photography/products/fonds-de-tarte/garni-creme-legere.png',   badge:null,                 description:'Fond sucrée garni d\'une couche de crème légère. Pour des tartelettes aux fruits fraîches et légères, avec un fini propre et régulier.',                                     formats:'Ø80 mm rond',                         packaging:'36 pièces / boîte · surgelé cru' },
+  'sucree-cacao':          { name:'Fond Sucrée Cacao',      category:'Fonds de tarte',  image:'brand_assets/photography/products/fonds-de-tarte/sucree-cacao-stick.png',   badge:null,                 description:'Pâte sucrée au cacao, couleur et goût chocolaté intenses. Apporte caractère et originalité aux tartes fruits rouges, ganaches ou chocolat.',                               formats:'Stick 110×35 mm · Ø80 mm rond',       packaging:'40 pièces / boîte · surgelé cru' },
+  'sucree-rond':           { name:'Fond Sucrée',            category:'Fonds de tarte',  image:'brand_assets/photography/products/fonds-de-tarte/sucree-rond.jpg',          badge:null,                 description:'La base incontournable. Pâte sucrée dorée, texture sablée fine. Compatible avec toutes les garnitures froides ou cuites.',                                                   formats:'Ø80 mm · Ø65 mm',                     packaging:'36–48 pièces / boîte · surgelé cru' },
+  'sucree-stick':          { name:'Fond Sucrée Stick',      category:'Fonds de tarte',  image:'brand_assets/photography/products/fonds-de-tarte/sucree-stick.jpg',         badge:null,                 description:'Pâte sucrée en format stick. Idéal pour les tartes bandes et les vitrines longues format.',                                                                                 formats:'110×35 mm stick',                     packaging:'40 pièces / boîte · surgelé cru' },
+  'sablee-stick':          { name:'Fond Sablée Stick',      category:'Fonds de tarte',  image:'brand_assets/photography/products/fonds-de-tarte/sablee-stick.jpg',         badge:null,                 description:'Pâte sablée en format stick. Plus friable et fondante que la sucrée — pour les productions haut de gamme.',                                                                  formats:'110×35 mm stick',                     packaging:'40 pièces / boîte · surgelé cru' },
+  'brisee-rond':           { name:'Fond Brisée',            category:'Fonds de tarte',  image:'brand_assets/photography/products/fonds-de-tarte/brisee-rond.jpg',          badge:null,                 description:'Pâte brisée en format rond. Goût neutre, idéale pour les tartes salées, quiches légères ou préparations mixtes.',                                                           formats:'Ø80 mm · Ø65 mm',                     packaging:'36 pièces / boîte · surgelé cru' },
+  'brisee-stick':          { name:'Fond Brisée Stick',      category:'Fonds de tarte',  image:'brand_assets/photography/products/fonds-de-tarte/brisee-stick.jpg',         badge:null,                 description:'Pâte brisée en format stick. Polyvalente pour les tartes salées bandes et les entrées.',                                                                                     formats:'110×35 mm stick',                     packaging:'40 pièces / boîte · surgelé cru' },
+  'clafoutis-griottes':    { name:'Clafoutis Griottes',     category:'Clafoutis crus',  image:'brand_assets/photography/products/clafoutis-crus/griottes.png',             badge:null,                 description:'Le clafoutis traditionnel. Griottes entières dans un appareil à base de lait entier et œufs frais. Un classique qui rassure les clients.',                                  formats:'Ø100 mm individuel · Ø65 mm mini',    packaging:'20 pièces / boîte · surgelé cru' },
+  'clafoutis-framboises':  { name:'Clafoutis Framboises Rhubarbe',category:'Clafoutis crus',image:'brand_assets/photography/products/clafoutis-crus/framboises-rhubarbe.png',badge:'new',badgeText:'Nouveauté',description:'Appareil clafoutis sur fond sucrée, garni de framboises et morceaux de rhubarbe. Acidité franche et goût estival.',                                             formats:'Ø100 mm individuel',                  packaging:'20 pièces / boîte · surgelé cru' },
+  'clafoutis-poires-chocolat':{ name:'Clafoutis Poires Chocolat',category:'Clafoutis crus',image:'brand_assets/photography/products/clafoutis-crus/poires-chocolat.png',  badge:'new', badgeText:'Nouveauté', description:'Appareil clafoutis, morceaux de poires Williams et pépites de chocolat noir. Une association gourmande en format professionnel.',                                  formats:'Ø100 mm individuel',                  packaging:'20 pièces / boîte · surgelé cru' },
+  'clafoutis-pommes':      { name:'Clafoutis Pommes',       category:'Clafoutis crus',  image:'brand_assets/photography/products/clafoutis-crus/pommes.png',               badge:null,                 description:'Appareil cannelle-pomme, morceaux de pommes fondants. Idéal pour les offres automnales et hivernales.',                                                                      formats:'Ø100 mm individuel',                  packaging:'20 pièces / boîte · surgelé cru' },
+};
+
+// Mobile menu
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+menuToggle.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  menuToggle.setAttribute('aria-expanded', String(isOpen));
+});
+mobileMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// Tab scroll spy
+const gammeSections = document.querySelectorAll('.gamme-section');
+const tabLinks = document.querySelectorAll('.tab-link');
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      tabLinks.forEach(t => t.classList.remove('active'));
+      const a = document.querySelector(`.tab-link[href="#${entry.target.id}"]`);
+      if (a) a.classList.add('active');
+    }
+  });
+}, { rootMargin: '-25% 0px -65% 0px' });
+gammeSections.forEach(s => spy.observe(s));
+
+// Modal
+const overlay   = document.getElementById('modal-overlay');
+const modalImg  = document.getElementById('modal-img');
+const modalName = document.getElementById('modal-name');
+const modalCat  = document.getElementById('modal-category');
+const modalDesc = document.getElementById('modal-description');
+const modalFmt  = document.getElementById('modal-formats');
+const modalPkg  = document.getElementById('modal-packaging');
+const modalBadge= document.getElementById('modal-badge-wrap');
+
+function openModal(id) {
+  const p = products[id];
+  if (!p) return;
+  modalImg.src = p.image;
+  modalImg.alt = p.name;
+  modalName.textContent = p.name;
+  modalCat.textContent  = p.category;
+  modalDesc.textContent = p.description;
+  modalFmt.textContent  = p.formats;
+  modalPkg.textContent  = p.packaging;
+  modalBadge.innerHTML  = p.badge === 'new' ? `<span class="badge-new">${p.badgeText}</span>`
+                        : p.badge === 'or'  ? `<span class="badge-or">${p.badgeText}</span>`
+                        : '';
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+document.querySelectorAll('.product-card').forEach(card => {
+  card.addEventListener('click', () => openModal(card.dataset.product));
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(card.dataset.product); }
+  });
+});
+</script>
+
+</body>
+</html>
