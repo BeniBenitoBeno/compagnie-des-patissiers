@@ -101,11 +101,14 @@
     }
     .badge-cat {
       display: inline-block;
-      border: 0.5px solid rgba(107,104,96,0.6);
-      color: rgba(107,104,96,0.9);
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 0.5px solid rgba(255,255,255,0.28);
+      color: rgba(255,255,255,0.92);
       font-family: 'Inter', sans-serif;
       font-size: 9px;
-      font-weight: 400;
+      font-weight: 500;
       letter-spacing: 0.10em;
       text-transform: uppercase;
       padding: 4px 10px;
@@ -194,7 +197,7 @@
     <div class="max-w-2xl">
       <p class="font-sans font-medium text-white/50 mb-5"
          style="font-size:11px; letter-spacing:0.10em; text-transform:uppercase;">
-        Depuis 1986
+        Depuis 1997
       </p>
 
       <h1 class="font-display text-white mb-6"
@@ -239,7 +242,7 @@
 
       <p class="font-sans font-light text-gris"
          style="font-size:15px; line-height:1.75;">
-        La Compagnie des Pâtissiers incarne une vision rare&nbsp;: une production à grande échelle qui ne renonce pas à la précision artisanale. Chaque recette est pensée pour le professionnel exigeant, chaque format conçu pour s'intégrer dans son flux de travail.
+        Compagnie des Pâtissiers incarne une vision rare&nbsp;: une production à grande échelle qui ne renonce pas à la précision artisanale. Chaque recette est pensée pour le professionnel exigeant, chaque format conçu pour s'intégrer dans son flux de travail.
       </p>
     </div>
 
@@ -403,7 +406,7 @@
     <div class="grid md:grid-cols-3 gap-10">
 
       <!-- Flan Pistache -->
-      <div class="group">
+      <div class="group flex flex-col">
         <div class="relative overflow-hidden mb-5" style="height:260px; border-radius:2px;">
           <img src="brand_assets/photography/products/flans-crus/flan-pistache.png"
                alt="Flan Pistache"
@@ -411,14 +414,14 @@
         </div>
         <span class="badge-new mb-3">Nouveauté</span>
         <h3 class="font-display text-2xl text-noir mt-3 mb-2">Flan Pistache</h3>
-        <p class="font-sans font-light text-gris text-sm mb-4" style="line-height:1.75;">
+        <p class="font-sans font-light text-gris text-sm mb-4 flex-1" style="line-height:1.75;">
           Onctuosité et couleur naturelle, sans arôme artificiel. La pistache comme produit phare.
         </p>
         <a href="#" class="link-or text-noir">Fiche produit →</a>
       </div>
 
       <!-- Flan à l'ancienne -->
-      <div class="group">
+      <div class="group flex flex-col">
         <div class="relative overflow-hidden mb-5" style="height:260px; border-radius:2px;">
           <img src="brand_assets/photography/products/flans-crus/flan-a-lancienne.png"
                alt="Flan à l'ancienne"
@@ -426,14 +429,14 @@
         </div>
         <span class="badge-or mb-3">Innovation</span>
         <h3 class="font-display text-2xl text-noir mt-3 mb-2">Flan à l'ancienne</h3>
-        <p class="font-sans font-light text-gris text-sm mb-4" style="line-height:1.75;">
+        <p class="font-sans font-light text-gris text-sm mb-4 flex-1" style="line-height:1.75;">
           Texture fondante, croûte légèrement caramélisée. Un classique réinterprété avec méthode.
         </p>
         <a href="#" class="link-or text-noir">Fiche produit →</a>
       </div>
 
       <!-- Couronne -->
-      <div class="group">
+      <div class="group flex flex-col">
         <div class="relative overflow-hidden mb-5" style="height:260px; border-radius:2px;">
           <img src="brand_assets/photography/products/fonds-de-tarte/couronne.png"
                alt="Couronne feuilletée"
@@ -441,7 +444,7 @@
         </div>
         <span class="badge-new mb-3">Nouveauté</span>
         <h3 class="font-display text-2xl text-noir mt-3 mb-2">Couronne feuilletée</h3>
-        <p class="font-sans font-light text-gris text-sm mb-4" style="line-height:1.75;">
+        <p class="font-sans font-light text-gris text-sm mb-4 flex-1" style="line-height:1.75;">
           Format événementiel en fond de tarte. Galettes, tartes de saison, présentations premium.
         </p>
         <a href="#" class="link-or text-noir">Fiche produit →</a>
@@ -460,26 +463,26 @@
 
     <div class="grid md:grid-cols-2 gap-16 items-center">
       <!-- Photos grid -->
-      <div class="grid grid-cols-3 gap-3">
+      <div class="grid grid-cols-2 gap-3">
         <div class="overflow-hidden" style="border-radius:2px; aspect-ratio:3/4;">
           <img src="brand_assets/photography/team/CP-2002-24_Retouche.jpg"
                alt="Équipe CDP"
-               class="w-full h-full object-cover" />
+               class="w-full h-full object-cover object-top" />
         </div>
-        <div class="overflow-hidden col-span-2" style="border-radius:2px; aspect-ratio:16/10;">
+        <div class="overflow-hidden" style="border-radius:2px; aspect-ratio:3/4;">
           <img src="brand_assets/photography/team/CP-2002-9_Retouche.jpg"
                alt="Équipe CDP"
-               class="w-full h-full object-cover" />
+               class="w-full h-full object-cover object-top" />
         </div>
-        <div class="overflow-hidden col-span-2" style="border-radius:2px; aspect-ratio:16/10;">
+        <div class="overflow-hidden" style="border-radius:2px; aspect-ratio:3/4;">
           <img src="brand_assets/photography/team/CP-2002-41_Retouche.jpg"
                alt="Équipe CDP"
-               class="w-full h-full object-cover" />
+               class="w-full h-full object-cover object-top" />
         </div>
         <div class="overflow-hidden" style="border-radius:2px; aspect-ratio:3/4;">
           <img src="brand_assets/photography/team/Charlotte_D.jpg"
                alt="Charlotte D."
-               class="w-full h-full object-cover" />
+               class="w-full h-full object-cover object-top" />
         </div>
       </div>
 
