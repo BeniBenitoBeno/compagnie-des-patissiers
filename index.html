@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compagnie des Pâtissiers — L'artisan à grande échelle</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            noir:   '#1A1A18',
+            ivoire: '#F7F4EE',
+            gris:   '#6B6860',
+            or:     '#F2C94C',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            sans:    ['Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #F7F4EE; color: #1A1A18; -webkit-font-smoothing: antialiased; }
+
+    /* ── Navigation ── */
+    #nav { transition: background 0.35s ease, backdrop-filter 0.35s ease; }
+    #nav.scrolled { background: rgba(26,26,24,0.94); backdrop-filter: blur(10px); }
+
+    .nav-link {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: rgba(247,244,238,0.75);
+      transition: color 0.2s ease;
+    }
+    .nav-link:hover  { color: #F7F4EE; }
+    .nav-link:focus-visible { outline: 1.5px solid #F2C94C; outline-offset: 4px; border-radius: 1px; }
+
+    /* ── Buttons & links ── */
+    .btn-primary {
+      display: inline-block;
+      background: #1A1A18;
+      color: #F7F4EE;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      border-radius: 2px;
+      transition: background 0.2s ease, transform 0.18s ease;
+    }
+    .btn-primary:hover  { background: #2e2e2b; transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:focus-visible { outline: 1.5px solid #F2C94C; outline-offset: 3px; }
+
+    .link-or {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      border-bottom: 1px solid #F2C94C;
+      padding-bottom: 1px;
+      transition: opacity 0.2s ease;
+    }
+    .link-or:hover  { opacity: 0.65; }
+    .link-or:focus-visible { outline: 1.5px solid #F2C94C; outline-offset: 3px; border-radius: 1px; }
+
+    /* ── Card hover ── */
+    .card-img { transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .card:hover .card-img { transform: scale(1.05); }
+    .card:focus-visible { outline: 1.5px solid #F2C94C; outline-offset: 3px; }
+
+    /* ── Badges ── */
+    .badge-new {
+      display: inline-block;
+      background: #1A1A18;
+      color: #F7F4EE;
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 1px;
+    }
+    .badge-cat {
+      display: inline-block;
+      border: 0.5px solid rgba(107,104,96,0.6);
+      color: rgba(107,104,96,0.9);
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 1px;
+    }
+    .badge-or {
+      display: inline-block;
+      background: #F2C94C;
+      color: #1A1A18;
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 1px;
+    }
+
+    /* ── Divider accent ── */
+    .accent-line { display: block; width: 32px; height: 1px; background: #F2C94C; }
+
+    /* ── Footer links ── */
+    .footer-link {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      color: rgba(247,244,238,0.5);
+      transition: color 0.2s ease;
+    }
+    .footer-link:hover  { color: rgba(247,244,238,0.9); }
+    .footer-link:focus-visible { outline: 1px solid #F2C94C; outline-offset: 3px; border-radius: 1px; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════════════ -->
+<nav id="nav" class="fixed top-0 left-0 right-0 z-50 px-8 md:px-14 py-5 flex items-center justify-between">
+  <a href="/" class="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-or">
+    <img src="brand_assets/logos/logo.png"
+         alt="Compagnie des Pâtissiers"
+         class="h-9 w-9 object-contain"
+         style="filter: invert(1);" />
+    <div class="leading-tight">
+      <span class="block font-sans font-medium text-white"
+            style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">
+        Compagnie des Pâtissiers
+      </span>
+      <span class="block font-sans font-light text-white/40"
+            style="font-size:9px; letter-spacing:0.06em; text-transform:uppercase;">
+        Groupe MAS
+      </span>
+    </div>
+  </a>
+
+  <ul class="hidden md:flex items-center gap-8">
+    <li><a href="#positionnement" class="nav-link">Qui sommes-nous</a></li>
+    <li><a href="#gammes"         class="nav-link">Nos gammes</a></li>
+    <li><a href="#innovation"     class="nav-link">Innovation</a></li>
+    <li>
+      <a href="#contact"
+         class="nav-link px-4 py-2"
+         style="border: 0.5px solid rgba(247,244,238,0.25); border-radius:2px; transition: border-color 0.2s ease;">
+        Contact
+      </a>
+    </li>
+  </ul>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════ -->
+<section class="relative h-screen min-h-[640px] overflow-hidden bg-noir">
+  <img src="brand_assets/photography/ambiance/slider-groupe-mas.png"
+       alt=""
+       class="absolute inset-0 w-full h-full object-cover"
+       style="opacity:0.85;" />
+
+  <!-- gradient from bottom dark + top semi-dark for nav legibility -->
+  <div class="absolute inset-0"
+       style="background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.20) 55%, rgba(0,0,0,0.55) 100%);"></div>
+
+  <div class="relative z-10 h-full flex flex-col justify-end px-8 md:px-14 lg:px-20 pb-20">
+    <div class="max-w-2xl">
+      <p class="font-sans font-medium text-white/50 mb-5"
+         style="font-size:11px; letter-spacing:0.10em; text-transform:uppercase;">
+        Depuis 1986
+      </p>
+
+      <h1 class="font-display text-white mb-6"
+          style="font-size: clamp(48px, 7vw, 80px); letter-spacing:-0.02em; line-height:1.08;">
+        L'artisan<br>
+        <em>à grande échelle</em>
+      </h1>
+
+      <p class="font-sans font-light text-white/70 mb-10 max-w-md"
+         style="font-size:15px; line-height:1.75;">
+        Le geste du pâtissier, reproduit avec exigence. Des produits crus surgelés conçus pour les professionnels de la boulangerie et de la restauration.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-6">
+        <a href="#gammes" class="btn-primary">Découvrir nos gammes</a>
+        <a href="#positionnement" class="link-or text-white">Qui sommes-nous →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     POSITIONNEMENT
+═══════════════════════════════════════════════ -->
+<section id="positionnement" class="bg-white py-24 px-8 md:px-14 lg:px-20">
+  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-start">
+
+    <!-- Colonne gauche: citation + accent -->
+    <div>
+      <p class="font-sans font-medium text-gris mb-6"
+         style="font-size:11px; letter-spacing:0.10em; text-transform:uppercase;">
+        Notre positionnement
+      </p>
+
+      <blockquote class="font-display italic text-noir mb-6"
+                  style="font-size: clamp(26px,3.5vw,36px); letter-spacing:-0.01em; line-height:1.25;">
+        "Élégant sans être froid.<br>Industriel sans être banal."
+      </blockquote>
+
+      <span class="accent-line mb-7"></span>
+
+      <p class="font-sans font-light text-gris"
+         style="font-size:15px; line-height:1.75;">
+        La Compagnie des Pâtissiers incarne une vision rare&nbsp;: une production à grande échelle qui ne renonce pas à la précision artisanale. Chaque recette est pensée pour le professionnel exigeant, chaque format conçu pour s'intégrer dans son flux de travail.
+      </p>
+    </div>
+
+    <!-- Colonne droite: données -->
+    <div class="space-y-9 pt-1">
+      <div>
+        <p class="font-sans font-medium text-noir mb-3"
+           style="font-size:11px; letter-spacing:0.10em; text-transform:uppercase;">
+          Nos clients
+        </p>
+        <p class="font-sans font-light text-gris" style="font-size:15px; line-height:1.75;">
+          Boulangers et pâtissiers artisanaux, restaurateurs, distributeurs spécialisés, grande et moyenne surface. Des professionnels qui partagent la même exigence de qualité et de régularité.
+        </p>
+      </div>
+
+      <div class="h-px bg-ivoire"></div>
+
+      <div>
+        <p class="font-sans font-medium text-noir mb-3"
+           style="font-size:11px; letter-spacing:0.10em; text-transform:uppercase;">
+          Notre ancrage
+        </p>
+        <p class="font-sans font-light text-gris" style="font-size:15px; line-height:1.75;">
+          Filiale du <span class="font-medium text-noir">Groupe MAS</span> (French Quality Food), nous conjuguons les ressources d'un groupe industriel avec l'âme d'une maison de pâtisserie française.
+        </p>
+      </div>
+
+      <div class="h-px bg-ivoire"></div>
+
+      <div>
+        <p class="font-sans font-medium text-noir mb-3"
+           style="font-size:11px; letter-spacing:0.10em; text-transform:uppercase;">
+          Notre offre
+        </p>
+        <p class="font-sans font-light text-gris" style="font-size:15px; line-height:1.75;">
+          Flans crus, fonds de tarte, clafoutis crus et solutions bake-off. Des gammes complètes, prêtes à cuire, livrées surgelées.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     NOS GAMMES
+═══════════════════════════════════════════════ -->
+<section id="gammes" class="bg-noir py-24 px-8 md:px-14 lg:px-20">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="flex items-end justify-between mb-14">
+      <div>
+        <p class="font-sans font-medium text-gris mb-4"
+           style="font-size:11px; letter-spacing:0.10em; text-transform:uppercase;">
+          Notre offre
+        </p>
+        <h2 class="font-display text-white"
+            style="font-size: clamp(36px,5vw,52px); letter-spacing:-0.02em; line-height:1.1;">
+          Nos gammes
+        </h2>
+      </div>
+      <a href="#" class="hidden md:block link-or text-white/80">Voir tous les produits →</a>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <!-- Flans Crus -->
+      <a href="#" class="card group block overflow-hidden focus-visible:outline-or"
+         style="border-radius:2px;">
+        <div class="relative h-72 overflow-hidden">
+          <img src="brand_assets/photography/products/flans-crus/_hero.jpg"
+               alt="Flans crus"
+               class="card-img w-full h-full object-cover" />
+          <div class="absolute inset-0"
+               style="background:linear-gradient(to top, rgba(0,0,0,0.70) 0%, transparent 55%);"></div>
+          <div class="absolute top-4 left-4">
+            <span class="badge-cat">Cru surgelé</span>
+          </div>
+        </div>
+        <div class="p-6" style="background:rgba(26,26,24,1); border-top:0.5px solid rgba(255,255,255,0.08);">
+          <h3 class="font-display text-xl text-white mb-2">Flans crus</h3>
+          <p class="font-sans font-light text-gris text-sm mb-4" style="line-height:1.75;">
+            Pur beurre, pistache, coco, chocolat, à l'ancienne. Prêts à cuire, en format individuel ou plaque.
+          </p>
+          <span class="link-or text-white/70">Fiche gamme →</span>
+        </div>
+      </a>
+
+      <!-- Fonds de Tarte -->
+      <a href="#" class="card group block overflow-hidden focus-visible:outline-or"
+         style="border-radius:2px;">
+        <div class="relative h-72 overflow-hidden">
+          <img src="brand_assets/photography/products/fonds-de-tarte/_hero.jpg"
+               alt="Fonds de tarte"
+               class="card-img w-full h-full object-cover" />
+          <div class="absolute inset-0"
+               style="background:linear-gradient(to top, rgba(0,0,0,0.70) 0%, transparent 55%);"></div>
+          <div class="absolute top-4 left-4">
+            <span class="badge-cat">Cru surgelé</span>
+          </div>
+        </div>
+        <div class="p-6" style="background:rgba(26,26,24,1); border-top:0.5px solid rgba(255,255,255,0.08);">
+          <h3 class="font-display text-xl text-white mb-2">Fonds de tarte</h3>
+          <p class="font-sans font-light text-gris text-sm mb-4" style="line-height:1.75;">
+            Sucrés, sablés, brisés, garnis frangipane. En ronds, sticks ou couronnes — toutes les formes du métier.
+          </p>
+          <span class="link-or text-white/70">Fiche gamme →</span>
+        </div>
+      </a>
+
+      <!-- Clafoutis Crus -->
+      <a href="#" class="card group block overflow-hidden focus-visible:outline-or"
+         style="border-radius:2px;">
+        <div class="relative h-72 overflow-hidden">
+          <img src="brand_assets/photography/products/clafoutis-crus/_hero.png"
+               alt="Clafoutis crus"
+               class="card-img w-full h-full object-cover" />
+          <div class="absolute inset-0"
+               style="background:linear-gradient(to top, rgba(0,0,0,0.70) 0%, transparent 55%);"></div>
+          <div class="absolute top-4 left-4">
+            <span class="badge-cat">Cru surgelé</span>
+          </div>
+          <div class="absolute top-4 right-4">
+            <span class="badge-new">Nouveau</span>
+          </div>
+        </div>
+        <div class="p-6" style="background:rgba(26,26,24,1); border-top:0.5px solid rgba(255,255,255,0.08);">
+          <h3 class="font-display text-xl text-white mb-2">Clafoutis crus</h3>
+          <p class="font-sans font-light text-gris text-sm mb-4" style="line-height:1.75;">
+            Griottes, poires-chocolat, framboises-rhubarbe, pommes. La saison en format professionnel.
+          </p>
+          <span class="link-or text-white/70">Fiche gamme →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     INNOVATION 2025
+═══════════════════════════════════════════════ -->
+<section id="innovation" class="bg-ivoire py-24 px-8 md:px-14 lg:px-20">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="mb-14">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="badge-or">Innovation</span>
+        <p class="font-sans font-medium text-gris"
+           style="font-size:11px; letter-spacing:0.10em; text-transform:uppercase;">
+          Nouveautés 2025
+        </p>
+      </div>
+      <h2 class="font-display text-noir"
+          style="font-size: clamp(32px,4.5vw,48px); letter-spacing:-0.02em; line-height:1.1; max-width:460px;">
+        Les dernières<br><em>créations</em>
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-10">
+
+      <!-- Flan Pistache -->
+      <div class="group">
+        <div class="relative overflow-hidden mb-5" style="height:260px; border-radius:2px;">
+          <img src="brand_assets/photography/products/flans-crus/flan-pistache.png"
+               alt="Flan Pistache"
+               class="card-img w-full h-full object-cover" />
+        </div>
+        <span class="badge-new mb-3">Nouveauté</span>
+        <h3 class="font-display text-2xl text-noir mt-3 mb-2">Flan Pistache</h3>
+        <p class="font-sans font-light text-gris text-sm mb-4" style="line-height:1.75;">
+          Onctuosité et couleur naturelle, sans arôme artificiel. La pistache comme produit phare.
+        </p>
+        <a href="#" class="link-or text-noir">Fiche produit →</a>
+      </div>
+
+      <!-- Flan à l'ancienne -->
+      <div class="group">
+        <div class="relative overflow-hidden mb-5" style="height:260px; border-radius:2px;">
+          <img src="brand_assets/photography/products/flans-crus/flan-a-lancienne.png"
+               alt="Flan à l'ancienne"
+               class="card-img w-full h-full object-cover" />
+        </div>
+        <span class="badge-or mb-3">Innovation</span>
+        <h3 class="font-display text-2xl text-noir mt-3 mb-2">Flan à l'ancienne</h3>
+        <p class="font-sans font-light text-gris text-sm mb-4" style="line-height:1.75;">
+          Texture fondante, croûte légèrement caramélisée. Un classique réinterprété avec méthode.
+        </p>
+        <a href="#" class="link-or text-noir">Fiche produit →</a>
+      </div>
+
+      <!-- Couronne -->
+      <div class="group">
+        <div class="relative overflow-hidden mb-5" style="height:260px; border-radius:2px;">
+          <img src="brand_assets/photography/products/fonds-de-tarte/couronne.png"
+               alt="Couronne feuilletée"
+               class="card-img w-full h-full object-cover" />
+        </div>
+        <span class="badge-new mb-3">Nouveauté</span>
+        <h3 class="font-display text-2xl text-noir mt-3 mb-2">Couronne feuilletée</h3>
+        <p class="font-sans font-light text-gris text-sm mb-4" style="line-height:1.75;">
+          Format événementiel en fond de tarte. Galettes, tartes de saison, présentations premium.
+        </p>
+        <a href="#" class="link-or text-noir">Fiche produit →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     ÉQUIPE — aperçu
+═══════════════════════════════════════════════ -->
+<section class="bg-white py-24 px-8 md:px-14 lg:px-20">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <!-- Photos grid -->
+      <div class="grid grid-cols-3 gap-3">
+        <div class="overflow-hidden" style="border-radius:2px; aspect-ratio:3/4;">
+          <img src="brand_assets/photography/team/CP-2002-24_Retouche.jpg"
+               alt="Équipe CDP"
+               class="w-full h-full object-cover" />
+        </div>
+        <div class="overflow-hidden col-span-2" style="border-radius:2px; aspect-ratio:16/10;">
+          <img src="brand_assets/photography/team/CP-2002-9_Retouche.jpg"
+               alt="Équipe CDP"
+               class="w-full h-full object-cover" />
+        </div>
+        <div class="overflow-hidden col-span-2" style="border-radius:2px; aspect-ratio:16/10;">
+          <img src="brand_assets/photography/team/CP-2002-41_Retouche.jpg"
+               alt="Équipe CDP"
+               class="w-full h-full object-cover" />
+        </div>
+        <div class="overflow-hidden" style="border-radius:2px; aspect-ratio:3/4;">
+          <img src="brand_assets/photography/team/Charlotte_D.jpg"
+               alt="Charlotte D."
+               class="w-full h-full object-cover" />
+        </div>
+      </div>
+
+      <!-- Texte -->
+      <div>
+        <p class="font-sans font-medium text-gris mb-6"
+           style="font-size:11px; letter-spacing:0.10em; text-transform:uppercase;">
+          Les hommes et les femmes
+        </p>
+        <h2 class="font-display text-noir mb-6"
+            style="font-size: clamp(28px,3.5vw,40px); letter-spacing:-0.02em; line-height:1.15;">
+          Des experts du métier,<br><em>au service des artisans</em>
+        </h2>
+        <span class="accent-line mb-7"></span>
+        <p class="font-sans font-light text-gris mb-8"
+           style="font-size:15px; line-height:1.75;">
+          Nos commerciaux, techniciens et développeurs produit connaissent le métier de la boulangerie-pâtisserie. Ils accompagnent chaque professionnel dans le choix et la mise en œuvre des gammes.
+        </p>
+        <a href="#contact" class="link-or text-noir">Rencontrer l'équipe →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════ -->
+<footer id="contact" class="bg-noir py-16 px-8 md:px-14 lg:px-20">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="grid md:grid-cols-4 gap-12 pb-12"
+         style="border-bottom:0.5px solid rgba(255,255,255,0.08);">
+
+      <!-- Marque -->
+      <div class="md:col-span-1">
+        <img src="brand_assets/logos/logo.png"
+             alt="Compagnie des Pâtissiers"
+             class="h-12 w-12 mb-5 object-contain"
+             style="filter:invert(1);" />
+        <p class="font-sans font-medium text-white mb-1"
+           style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase;">
+          Compagnie des Pâtissiers
+        </p>
+        <p class="font-sans font-light text-gris text-sm">L'artisan à grande échelle</p>
+        <p class="font-sans font-light text-gris mt-3" style="font-size:12px;">
+          Filiale du Groupe MAS<br>French Quality Food
+        </p>
+      </div>
+
+      <!-- Gammes -->
+      <div>
+        <p class="font-sans font-medium text-gris mb-5"
+           style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">
+          Gammes
+        </p>
+        <ul class="space-y-3">
+          <li><a href="#" class="footer-link">Flans crus</a></li>
+          <li><a href="#" class="footer-link">Fonds de tarte</a></li>
+          <li><a href="#" class="footer-link">Clafoutis crus</a></li>
+          <li><a href="#" class="footer-link">Bake-off</a></li>
+        </ul>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <p class="font-sans font-medium text-gris mb-5"
+           style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">
+          Navigation
+        </p>
+        <ul class="space-y-3">
+          <li><a href="#positionnement" class="footer-link">Qui sommes-nous</a></li>
+          <li><a href="#innovation"     class="footer-link">Innovation</a></li>
+          <li><a href="#"              class="footer-link">Espace professionnel</a></li>
+          <li><a href="#"              class="footer-link">Mentions légales</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <p class="font-sans font-medium text-gris mb-5"
+           style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">
+          Contact
+        </p>
+        <p class="font-sans font-light text-gris text-sm mb-4" style="line-height:1.7;">
+          Professionnels &amp; distributeurs<br>Du lundi au vendredi, 8h–18h
+        </p>
+        <a href="mailto:contact@compagniedespatissiers.com"
+           class="link-or text-white/70"
+           style="font-size:11px;">
+          Nous écrire →
+        </a>
+      </div>
+
+    </div>
+
+    <div class="pt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+      <p class="font-sans font-light text-gris" style="font-size:12px;">
+        © 2025 Compagnie des Pâtissiers — Tous droits réservés
+      </p>
+      <p class="font-sans font-light text-gris" style="font-size:12px;">
+        Une marque du <span class="text-white/40">Groupe MAS</span>
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+</script>
+
+</body>
+</html>
