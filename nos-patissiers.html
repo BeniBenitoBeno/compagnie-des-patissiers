@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notre équipe — Compagnie des Pâtissiers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { noir:'#1A1A18', ivoire:'#F7F4EE', gris:'#6B6860', or:'#F2C94C' },
+          fontFamily: { display:['"Playfair Display"','serif'], sans:['Inter','sans-serif'] },
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Inter',sans-serif; background:#F7F4EE; color:#1A1A18; -webkit-font-smoothing:antialiased; }
+
+    #nav { background:rgba(26,26,24,0.96); backdrop-filter:blur(10px); }
+    .nav-link { font-family:'Inter',sans-serif; font-weight:500; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:rgba(247,244,238,0.75); transition:color 0.2s ease; }
+    .nav-link:hover, .nav-link.current { color:#F7F4EE; }
+    .nav-link:focus-visible { outline:1.5px solid #F2C94C; outline-offset:4px; border-radius:1px; }
+
+    #mobile-menu { background:rgba(26,26,24,0.97); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); transform:translateY(-8px); opacity:0; pointer-events:none; transition:transform 0.25s ease, opacity 0.2s ease; }
+    #mobile-menu.open { transform:translateY(0); opacity:1; pointer-events:auto; }
+
+    .btn-primary { display:inline-block; background:#1A1A18; color:#F7F4EE; font-family:'Inter',sans-serif; font-weight:500; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; padding:12px 28px; border-radius:2px; transition:background 0.2s ease, transform 0.18s ease; }
+    .btn-primary:hover { background:#2e2e2b; transform:translateY(-1px); }
+    .btn-primary:active { transform:translateY(0); }
+
+    .link-or { font-family:'Inter',sans-serif; font-weight:500; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; border-bottom:1px solid #F2C94C; padding-bottom:1px; transition:opacity 0.2s ease; }
+    .link-or:hover { opacity:0.65; }
+
+    .accent-line { display:block; width:32px; height:1px; background:#F2C94C; }
+    .footer-link { font-family:'Inter',sans-serif; font-weight:300; font-size:13px; color:rgba(247,244,238,0.5); transition:color 0.2s ease; }
+    .footer-link:hover { color:rgba(247,244,238,0.9); }
+
+    /* Portrait card */
+    .portrait-img { transition:transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .portrait-card:hover .portrait-img { transform:scale(1.04); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav" class="fixed top-0 left-0 right-0 z-50">
+  <div class="px-8 md:px-14 py-5 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="brand_assets/logos/logo.png" alt="Compagnie des Pâtissiers" class="h-9 w-9 object-contain" style="filter:invert(1);" />
+      <div class="leading-tight">
+        <span class="block font-sans font-medium text-white" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Compagnie des Pâtissiers</span>
+        <span class="block font-sans font-light text-white/40" style="font-size:9px; letter-spacing:0.06em; text-transform:uppercase;">Groupe MAS</span>
+      </div>
+    </a>
+    <ul class="hidden md:flex items-center gap-8">
+      <li><a href="index.html#positionnement" class="nav-link">Qui sommes-nous</a></li>
+      <li><a href="nos-gammes.html"            class="nav-link">Nos gammes</a></li>
+      <li><a href="index.html#innovation"      class="nav-link">Innovation</a></li>
+      <li><a href="index.html#contact" class="nav-link px-4 py-2" style="border:0.5px solid rgba(247,244,238,0.25); border-radius:2px;">Contact</a></li>
+    </ul>
+    <button id="menu-toggle" class="md:hidden flex flex-col justify-center gap-[6px] w-8 h-8" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span class="block w-5 h-px bg-white/80"></span>
+      <span class="block w-5 h-px bg-white/80"></span>
+      <span class="block w-5 h-px bg-white/80"></span>
+    </button>
+  </div>
+  <div id="mobile-menu" class="md:hidden px-8 pb-7 flex flex-col gap-5">
+    <a href="index.html#positionnement" class="nav-link py-1">Qui sommes-nous</a>
+    <a href="nos-gammes.html"           class="nav-link py-1">Nos gammes</a>
+    <a href="index.html#innovation"     class="nav-link py-1">Innovation</a>
+    <a href="index.html#contact"        class="nav-link py-2 px-4 self-start" style="border:0.5px solid rgba(247,244,238,0.25); border-radius:2px;">Contact</a>
+  </div>
+</nav>
+
+
+<!-- PAGE HEADER -->
+<section class="bg-noir" style="padding-top:104px; padding-bottom:56px;">
+  <div class="max-w-5xl mx-auto px-8 md:px-14">
+    <p class="font-sans font-medium text-gris mb-6" style="font-size:11px; letter-spacing:0.07em; text-transform:uppercase;">
+      <a href="index.html" class="hover:text-white/60 transition-colors duration-200">Accueil</a>
+      <span class="mx-2 opacity-40">→</span>Notre équipe
+    </p>
+    <h1 class="font-display text-white mb-4" style="font-size:clamp(38px,6vw,62px); letter-spacing:-0.02em; line-height:1.08;">Notre équipe</h1>
+    <p class="font-sans font-light text-white/55 max-w-lg" style="font-size:15px; line-height:1.75;">
+      Des commerciaux, techniciens et développeurs produit qui connaissent le métier de la boulangerie-pâtisserie — et l'amour du travail bien fait.
+    </p>
+  </div>
+</section>
+
+
+<!-- INTRO ÉDITORIALE -->
+<section class="bg-white py-16 md:py-24 px-8 md:px-14 lg:px-20">
+  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-start">
+    <div>
+      <blockquote class="font-display italic text-noir mb-6"
+                  style="font-size:clamp(24px,3.5vw,36px); letter-spacing:-0.01em; line-height:1.25;">
+        "Des experts du métier,<br>au service des artisans."
+      </blockquote>
+      <span class="accent-line"></span>
+    </div>
+    <div class="pt-2">
+      <p class="font-sans font-light text-gris mb-6" style="font-size:15px; line-height:1.8;">
+        Chez Compagnie des Pâtissiers, chaque collaborateur est formé aux réalités du terrain. Nos équipes commerciales et techniques accompagnent les professionnels de la boulangerie, de la pâtisserie et de la restauration — pas seulement pour vendre, mais pour trouver les bons formats, les bonnes recettes, les bons volumes.
+      </p>
+      <p class="font-sans font-light text-gris" style="font-size:15px; line-height:1.8;">
+        Ce savoir-faire collectif, c'est ce qui fait la différence entre un fournisseur et un partenaire.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- MOSAÏQUE AMBIANCE -->
+<section class="bg-noir">
+  <div class="grid grid-cols-2 md:grid-cols-3" style="gap:2px;">
+    <div class="overflow-hidden" style="height:320px;">
+      <img src="brand_assets/photography/team/CP-2002-24_Retouche.jpg"
+           alt="Équipe CDP"
+           class="w-full h-full object-cover object-top" />
+    </div>
+    <div class="overflow-hidden md:col-span-2" style="height:320px;">
+      <img src="brand_assets/photography/team/CP-2002-9_Retouche.jpg"
+           alt="Équipe CDP"
+           class="w-full h-full object-cover object-top" />
+    </div>
+    <div class="overflow-hidden col-span-2 md:col-span-2" style="height:320px;">
+      <img src="brand_assets/photography/team/CP-2002-41_Retouche.jpg"
+           alt="Équipe CDP"
+           class="w-full h-full object-cover object-top" />
+    </div>
+    <div class="hidden md:block overflow-hidden" style="height:320px; background:rgba(26,26,24,1);">
+      <div class="w-full h-full flex flex-col justify-center px-8">
+        <p class="font-sans font-medium text-white/30 mb-3" style="font-size:10px; letter-spacing:0.12em; text-transform:uppercase;">Depuis 1995</p>
+        <p class="font-display italic text-white/80" style="font-size:clamp(18px,2.5vw,26px); line-height:1.35;">
+          "Le geste du pâtissier,<br>reproduit avec exigence."
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PORTRAITS ÉQUIPE -->
+<section class="bg-ivoire py-16 md:py-24 px-8 md:px-14 lg:px-20">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="mb-12 md:mb-16">
+      <p class="font-sans font-medium text-gris mb-4" style="font-size:11px; letter-spacing:0.10em; text-transform:uppercase;">L'équipe</p>
+      <h2 class="font-display text-noir" style="font-size:clamp(28px,4vw,44px); letter-spacing:-0.02em; line-height:1.1;">Qui nous sommes</h2>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
+
+      <div class="portrait-card">
+        <div class="overflow-hidden mb-4" style="aspect-ratio:3/4; border-radius:2px;">
+          <img src="brand_assets/photography/team/Charlotte_D.jpg"
+               alt="Charlotte D."
+               class="portrait-img w-full h-full object-cover object-top" />
+        </div>
+        <h3 class="font-display text-noir text-lg mb-0.5">Charlotte D.</h3>
+        <p class="font-sans font-medium text-gris" style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase;">Développement produit</p>
+      </div>
+
+      <div class="portrait-card">
+        <div class="overflow-hidden mb-4" style="aspect-ratio:3/4; border-radius:2px;">
+          <img src="brand_assets/photography/team/Nicolas_A.jpg"
+               alt="Nicolas A."
+               class="portrait-img w-full h-full object-cover object-top" />
+        </div>
+        <h3 class="font-display text-noir text-lg mb-0.5">Nicolas A.</h3>
+        <p class="font-sans font-medium text-gris" style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase;">Direction commerciale</p>
+      </div>
+
+      <div class="portrait-card">
+        <div class="overflow-hidden mb-4" style="aspect-ratio:3/4; border-radius:2px;">
+          <img src="brand_assets/photography/team/Xavier_R.jpg"
+               alt="Xavier R."
+               class="portrait-img w-full h-full object-cover object-top" />
+        </div>
+        <h3 class="font-display text-noir text-lg mb-0.5">Xavier R.</h3>
+        <p class="font-sans font-medium text-gris" style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase;">Direction de production</p>
+      </div>
+
+      <div class="portrait-card">
+        <div class="overflow-hidden mb-4" style="aspect-ratio:3/4; border-radius:2px;">
+          <img src="brand_assets/photography/team/Sebastien_M.jpg"
+               alt="Sébastien M."
+               class="portrait-img w-full h-full object-cover object-top" />
+        </div>
+        <h3 class="font-display text-noir text-lg mb-0.5">Sébastien M.</h3>
+        <p class="font-sans font-medium text-gris" style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase;">Chef de gamme</p>
+      </div>
+
+      <div class="portrait-card">
+        <div class="overflow-hidden mb-4" style="aspect-ratio:3/4; border-radius:2px;">
+          <img src="brand_assets/photography/team/Nicolas_B.jpg"
+               alt="Nicolas B."
+               class="portrait-img w-full h-full object-cover object-top" />
+        </div>
+        <h3 class="font-display text-noir text-lg mb-0.5">Nicolas B.</h3>
+        <p class="font-sans font-medium text-gris" style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase;">Technico-commercial</p>
+      </div>
+
+      <div class="portrait-card">
+        <div class="overflow-hidden mb-4" style="aspect-ratio:3/4; border-radius:2px;">
+          <img src="brand_assets/photography/team/Vincent_P.jpg"
+               alt="Vincent P."
+               class="portrait-img w-full h-full object-cover object-top" />
+        </div>
+        <h3 class="font-display text-noir text-lg mb-0.5">Vincent P.</h3>
+        <p class="font-sans font-medium text-gris" style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase;">Assurance qualité</p>
+      </div>
+
+      <div class="portrait-card">
+        <div class="overflow-hidden mb-4" style="aspect-ratio:3/4; border-radius:2px;">
+          <img src="brand_assets/photography/team/Steeve_B.jpg"
+               alt="Steeve B."
+               class="portrait-img w-full h-full object-cover object-top" />
+        </div>
+        <h3 class="font-display text-noir text-lg mb-0.5">Steeve B.</h3>
+        <p class="font-sans font-medium text-gris" style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase;">Recherche &amp; développement</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA -->
+<section class="bg-noir py-16 md:py-20 px-8 md:px-14">
+  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <p class="font-sans font-medium text-gris mb-4" style="font-size:11px; letter-spacing:0.10em; text-transform:uppercase;">Travailler avec nous</p>
+      <h2 class="font-display text-white mb-4" style="font-size:clamp(26px,4vw,40px); letter-spacing:-0.02em; line-height:1.15;">
+        Un projet, une question<br><em>produit ?</em>
+      </h2>
+      <p class="font-sans font-light text-white/55 mb-8" style="font-size:15px; line-height:1.75;">
+        Notre équipe commerciale répond à toutes les demandes des professionnels — tarifs, formats, conditions de livraison, échantillons.
+      </p>
+      <a href="index.html#contact" class="btn-primary">Nous contacter →</a>
+    </div>
+    <div class="hidden md:block">
+      <div class="overflow-hidden" style="border-radius:2px; height:300px;">
+        <img src="brand_assets/photography/team/CP-2002-9_Retouche.jpg"
+             alt="Équipe CDP"
+             class="w-full h-full object-cover object-top" />
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="bg-noir px-8 md:px-14 lg:px-20" style="border-top:0.5px solid rgba(255,255,255,0.06);">
+  <div class="max-w-5xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-8 md:gap-12 py-12 md:py-14" style="border-bottom:0.5px solid rgba(255,255,255,0.08);">
+      <div class="md:col-span-1">
+        <img src="brand_assets/logos/logo.png" alt="Compagnie des Pâtissiers" class="h-12 w-12 mb-5 object-contain" style="filter:invert(1);" />
+        <p class="font-sans font-medium text-white mb-1" style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase;">Compagnie des Pâtissiers</p>
+        <p class="font-sans font-light text-gris text-sm">L'artisan à grande échelle</p>
+        <p class="font-sans font-light text-gris mt-3" style="font-size:12px;">Filiale du Groupe MAS<br>French Quality Food</p>
+      </div>
+      <div>
+        <p class="font-sans font-medium text-gris mb-5" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Gammes</p>
+        <ul class="space-y-3">
+          <li><a href="nos-gammes.html#flans-crus"     class="footer-link">Flans crus</a></li>
+          <li><a href="nos-gammes.html#fonds-de-tarte" class="footer-link">Fonds de tarte</a></li>
+          <li><a href="nos-gammes.html#clafoutis-crus" class="footer-link">Clafoutis crus</a></li>
+          <li><a href="nos-gammes.html"                class="footer-link">Bake-off</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-sans font-medium text-gris mb-5" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Navigation</p>
+        <ul class="space-y-3">
+          <li><a href="index.html#positionnement" class="footer-link">Qui sommes-nous</a></li>
+          <li><a href="nos-patissiers.html"        class="footer-link">Notre équipe</a></li>
+          <li><a href="index.html#innovation"      class="footer-link">Innovation</a></li>
+          <li><a href="#"                          class="footer-link">Mentions légales</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-sans font-medium text-gris mb-5" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Contact</p>
+        <p class="font-sans font-light text-gris text-sm mb-4" style="line-height:1.7;">Professionnels &amp; distributeurs<br>Du lundi au vendredi, 8h–18h</p>
+        <a href="mailto:contact@compagniedespatissiers.com" class="link-or text-white/70" style="font-size:11px;">Nous écrire →</a>
+      </div>
+    </div>
+    <div class="py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+      <p class="font-sans font-light text-gris" style="font-size:12px;">© 2025 Compagnie des Pâtissiers — Tous droits réservés</p>
+      <p class="font-sans font-light text-gris" style="font-size:12px;">Une marque du <span class="text-white/40">Groupe MAS</span></p>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+menuToggle.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  menuToggle.setAttribute('aria-expanded', String(isOpen));
+});
+mobileMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+</script>
+
+</body>
+</html>

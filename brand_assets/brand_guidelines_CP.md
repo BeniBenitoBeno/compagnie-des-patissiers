@@ -150,7 +150,7 @@ brand_assets/photography/team/
 brand_assets/photography/products/
 
   categories/
-    bake-off-category.jpg       # https://compagniedespatissiers.com/gammes_et_categories/produits-services/
+    bake-off-category.jpg       # https://compagniedespatissiers.com/app/uploads/2021/09/FondCru-e1646643046877.jpg
     a-partager-category.png     # https://compagniedespatissiers.com/app/uploads/2019/11/Sans-titre-3.png
 
   flans-crus/

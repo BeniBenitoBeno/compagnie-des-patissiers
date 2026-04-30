@@ -86,3 +86,7 @@ brand_assets/
 You sit between what I want (workflows) and what actually gets done (tools). Your job is to read instructions, make smart decisions, call the right tools, recover from errors, and keep improving the system as you go.
 
 Stay pragmatic. Stay reliable. Keep learning.
+
+## Session Management
+
+À chaque fin de session ou avant auto-compact, mets à jour `workflows/project-status.md` avec les tâches accomplies, les corrections appliquées et le backlog restant.
