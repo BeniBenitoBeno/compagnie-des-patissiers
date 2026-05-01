@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Espace professionnel — Compagnie des Pâtissiers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { noir:'#1A1A18', ivoire:'#F7F4EE', gris:'#6B6860', or:'#F2C94C' },
+          fontFamily: { display:['"Playfair Display"','serif'], sans:['Inter','sans-serif'] },
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Inter',sans-serif; background:#F7F4EE; color:#1A1A18; -webkit-font-smoothing:antialiased; }
+
+    #nav { background:rgba(26,26,24,0.96); backdrop-filter:blur(10px); }
+    .nav-link { font-family:'Inter',sans-serif; font-weight:500; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:rgba(247,244,238,0.75); transition:color 0.2s ease; }
+    .nav-link:hover { color:#F7F4EE; }
+    .nav-link:focus-visible { outline:1.5px solid #F2C94C; outline-offset:4px; border-radius:1px; }
+
+    #mobile-menu { background:rgba(26,26,24,0.97); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); transform:translateY(-8px); opacity:0; pointer-events:none; transition:transform 0.25s ease, opacity 0.2s ease; }
+    #mobile-menu.open { transform:translateY(0); opacity:1; pointer-events:auto; }
+
+    .btn-primary { display:inline-block; background:#1A1A18; color:#F7F4EE; font-family:'Inter',sans-serif; font-weight:500; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; padding:12px 28px; border-radius:2px; transition:background 0.2s ease, transform 0.18s ease; }
+    .btn-primary:hover { background:#2e2e2b; transform:translateY(-1px); }
+    .btn-primary:active { transform:translateY(0); }
+
+    .btn-secondary { display:inline-block; background:transparent; color:#1A1A18; border:1px solid #1A1A18; font-family:'Inter',sans-serif; font-weight:500; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; padding:12px 28px; border-radius:2px; transition:background 0.2s ease, color 0.2s ease; }
+    .btn-secondary:hover { background:#1A1A18; color:#F7F4EE; }
+
+    .link-or { font-family:'Inter',sans-serif; font-weight:500; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; border-bottom:1px solid #F2C94C; padding-bottom:1px; transition:opacity 0.2s ease; }
+    .link-or:hover { opacity:0.65; }
+
+    .footer-link { font-family:'Inter',sans-serif; font-weight:300; font-size:13px; color:rgba(247,244,238,0.5); transition:color 0.2s ease; }
+    .footer-link:hover { color:rgba(247,244,238,0.9); }
+
+    .resource-card { border:0.5px solid rgba(26,26,24,0.12); border-radius:2px; padding:24px; transition:border-color 0.2s ease, background 0.2s ease; }
+    .resource-card:hover { border-color:rgba(26,26,24,0.35); background:#fff; }
+
+    .form-input {
+      width:100%; background:#fff; border:0.5px solid rgba(26,26,24,0.2); border-radius:2px;
+      padding:12px 16px; font-family:'Inter',sans-serif; font-size:14px; font-weight:300; color:#1A1A18;
+      transition:border-color 0.2s ease, outline 0.15s ease;
+      outline:none;
+    }
+    .form-input:focus { border-color:#1A1A18; outline:1.5px solid rgba(242,201,76,0.5); outline-offset:0; }
+    .form-input::placeholder { color:#6B6860; }
+    .form-label { display:block; font-family:'Inter',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:#6B6860; margin-bottom:6px; }
+
+    .accent-line { display:block; width:32px; height:1px; background:#F2C94C; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav" class="fixed top-0 left-0 right-0 z-50">
+  <div class="px-8 md:px-14 py-5 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="brand_assets/logos/logo.png" alt="Compagnie des Pâtissiers" class="h-9 w-9 object-contain" style="filter:invert(1);" />
+      <div class="leading-tight">
+        <span class="block font-sans font-medium text-white" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Compagnie des Pâtissiers</span>
+        <span class="block font-sans font-light text-white/40" style="font-size:9px; letter-spacing:0.06em; text-transform:uppercase;">Groupe MAS</span>
+      </div>
+    </a>
+    <ul class="hidden md:flex items-center gap-8">
+      <li><a href="index.html#positionnement" class="nav-link">Qui sommes-nous</a></li>
+      <li><a href="nos-gammes.html"            class="nav-link">Nos gammes</a></li>
+      <li><a href="index.html#innovation"      class="nav-link">Innovation</a></li>
+      <li><a href="index.html#contact" class="nav-link px-4 py-2" style="border:0.5px solid rgba(247,244,238,0.25); border-radius:2px;">Contact</a></li>
+    </ul>
+    <button id="menu-toggle" class="md:hidden flex flex-col justify-center gap-[6px] w-8 h-8" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span class="block w-5 h-px bg-white/80"></span>
+      <span class="block w-5 h-px bg-white/80"></span>
+      <span class="block w-5 h-px bg-white/80"></span>
+    </button>
+  </div>
+  <div id="mobile-menu" class="md:hidden px-8 pb-7 flex flex-col gap-5">
+    <a href="index.html#positionnement" class="nav-link py-1">Qui sommes-nous</a>
+    <a href="nos-gammes.html"           class="nav-link py-1">Nos gammes</a>
+    <a href="index.html#innovation"     class="nav-link py-1">Innovation</a>
+    <a href="index.html#contact"        class="nav-link py-2 px-4 self-start" style="border:0.5px solid rgba(247,244,238,0.25); border-radius:2px;">Contact</a>
+  </div>
+</nav>
+
+
+<!-- PAGE HEADER -->
+<section class="bg-noir" style="padding-top:104px; padding-bottom:56px;">
+  <div class="max-w-5xl mx-auto px-8 md:px-14">
+    <p class="font-sans font-medium text-gris mb-6" style="font-size:11px; letter-spacing:0.07em; text-transform:uppercase;">
+      <a href="index.html" class="hover:text-white/60 transition-colors duration-200">Accueil</a>
+      <span class="mx-2 opacity-40">→</span>Espace professionnel
+    </p>
+    <h1 class="font-display text-white mb-4" style="font-size:clamp(38px,6vw,62px); letter-spacing:-0.02em; line-height:1.08;">Espace professionnel</h1>
+    <p class="font-sans font-light text-white/55 max-w-lg" style="font-size:15px; line-height:1.75;">
+      Ressources, tarifs et support dédiés aux boulangers, pâtissiers et distributeurs partenaires.
+    </p>
+  </div>
+</section>
+
+
+<!-- ACCÈS RAPIDE -->
+<section class="bg-white py-16 md:py-20 px-8 md:px-14 lg:px-20">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="mb-12">
+      <p class="font-sans font-medium text-gris mb-4" style="font-size:11px; letter-spacing:0.10em; text-transform:uppercase;">Ressources</p>
+      <h2 class="font-display text-noir" style="font-size:clamp(26px,4vw,40px); letter-spacing:-0.02em; line-height:1.1;">Documents &amp; outils</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5">
+
+      <div class="resource-card">
+        <div class="w-8 h-8 mb-5 flex items-center justify-center" style="background:#F7F4EE; border-radius:2px;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M9 1H3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6L9 1Z" stroke="#1A1A18" stroke-width="1.2" stroke-linejoin="round"/><path d="M9 1v5h5" stroke="#1A1A18" stroke-width="1.2" stroke-linejoin="round"/><path d="M5 9h6M5 12h4" stroke="#F2C94C" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="font-sans font-medium text-noir mb-2" style="font-size:13px; letter-spacing:0.02em;">Catalogue produits</h3>
+        <p class="font-sans font-light text-gris mb-5" style="font-size:13px; line-height:1.7;">Fiches techniques, formats disponibles, conditions de conservation.</p>
+        <a href="nos-gammes.html" class="link-or text-noir">Voir les gammes →</a>
+      </div>
+
+      <div class="resource-card">
+        <div class="w-8 h-8 mb-5 flex items-center justify-center" style="background:#F7F4EE; border-radius:2px;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="4" width="14" height="10" rx="1" stroke="#1A1A18" stroke-width="1.2"/><path d="M5 4V3a3 3 0 0 1 6 0v1" stroke="#1A1A18" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="9" r="1.5" fill="#F2C94C"/></svg>
+        </div>
+        <h3 class="font-sans font-medium text-noir mb-2" style="font-size:13px; letter-spacing:0.02em;">Conditions tarifaires</h3>
+        <p class="font-sans font-light text-gris mb-5" style="font-size:13px; line-height:1.7;">Grilles tarifaires et conditions commerciales réservées aux professionnels référencés.</p>
+        <a href="#contact-pro" class="link-or text-noir">Faire une demande →</a>
+      </div>
+
+      <div class="resource-card">
+        <div class="w-8 h-8 mb-5 flex items-center justify-center" style="background:#F7F4EE; border-radius:2px;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v14M1 8h14" stroke="#F2C94C" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="8" r="6.5" stroke="#1A1A18" stroke-width="1.2"/></svg>
+        </div>
+        <h3 class="font-sans font-medium text-noir mb-2" style="font-size:13px; letter-spacing:0.02em;">Échantillons</h3>
+        <p class="font-sans font-light text-gris mb-5" style="font-size:13px; line-height:1.7;">Testez nos produits avant de référencer. Demandez un kit d'échantillons gratuit.</p>
+        <a href="#contact-pro" class="link-or text-noir">Commander →</a>
+      </div>
+
+      <div class="resource-card">
+        <div class="w-8 h-8 mb-5 flex items-center justify-center" style="background:#F7F4EE; border-radius:2px;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 11L5.5 7.5l3 3L13 5" stroke="#F2C94C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="1" y="1" width="14" height="14" rx="1" stroke="#1A1A18" stroke-width="1.2"/></svg>
+        </div>
+        <h3 class="font-sans font-medium text-noir mb-2" style="font-size:13px; letter-spacing:0.02em;">Innovations 2025</h3>
+        <p class="font-sans font-light text-gris mb-5" style="font-size:13px; line-height:1.7;">Flan Pistache, Flan à l'ancienne, Couronne — les nouveautés de la saison.</p>
+        <a href="index.html#innovation" class="link-or text-noir">Découvrir →</a>
+      </div>
+
+      <div class="resource-card">
+        <div class="w-8 h-8 mb-5 flex items-center justify-center" style="background:#F7F4EE; border-radius:2px;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 14s0-4 5-4 5 4 5 4" stroke="#1A1A18" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="6" r="3" stroke="#1A1A18" stroke-width="1.2"/><path d="M12 9c1.5.5 2 2 2 2" stroke="#F2C94C" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="font-sans font-medium text-noir mb-2" style="font-size:13px; letter-spacing:0.02em;">Mon commercial</h3>
+        <p class="font-sans font-light text-gris mb-5" style="font-size:13px; line-height:1.7;">Chaque client est suivi par un interlocuteur dédié qui connaît votre métier.</p>
+        <a href="nos-patissiers.html" class="link-or text-noir">L'équipe →</a>
+      </div>
+
+      <div class="resource-card">
+        <div class="w-8 h-8 mb-5 flex items-center justify-center" style="background:#F7F4EE; border-radius:2px;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 3h14v9a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3Z" stroke="#1A1A18" stroke-width="1.2"/><path d="M1 3l7 5 7-5" stroke="#F2C94C" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 class="font-sans font-medium text-noir mb-2" style="font-size:13px; letter-spacing:0.02em;">Newsletter professionnelle</h3>
+        <p class="font-sans font-light text-gris mb-5" style="font-size:13px; line-height:1.7;">Nouveaux produits, offres saisonnières, informations logistiques en avant-première.</p>
+        <a href="#contact-pro" class="link-or text-noir">S'inscrire →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- AVANTAGES -->
+<section class="bg-noir py-16 md:py-20 px-8 md:px-14 lg:px-20">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+      <div>
+        <p class="font-sans font-medium text-gris mb-4" style="font-size:11px; letter-spacing:0.10em; text-transform:uppercase;">Pourquoi nous choisir</p>
+        <h2 class="font-display text-white mb-6" style="font-size:clamp(26px,4vw,40px); letter-spacing:-0.02em; line-height:1.15;">
+          Un partenaire,<br><em>pas un fournisseur</em>
+        </h2>
+        <span class="accent-line mb-8"></span>
+        <div class="space-y-6">
+          <div class="flex gap-4">
+            <span class="flex-shrink-0 w-5 h-px bg-or mt-3"></span>
+            <div>
+              <p class="font-sans font-medium text-white mb-1" style="font-size:13px;">Livraison surgelée sur toute la France</p>
+              <p class="font-sans font-light text-white/45" style="font-size:13px; line-height:1.7;">Chaîne du froid maîtrisée, délais garantis, conditionnements adaptés aux volumes professionnels.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <span class="flex-shrink-0 w-5 h-px bg-or mt-3"></span>
+            <div>
+              <p class="font-sans font-medium text-white mb-1" style="font-size:13px;">Accompagnement technique</p>
+              <p class="font-sans font-light text-white/45" style="font-size:13px; line-height:1.7;">Nos conseillers se déplacent chez vous pour optimiser la mise en œuvre des produits en production.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <span class="flex-shrink-0 w-5 h-px bg-or mt-3"></span>
+            <div>
+              <p class="font-sans font-medium text-white mb-1" style="font-size:13px;">Conditions sur mesure</p>
+              <p class="font-sans font-light text-white/45" style="font-size:13px; line-height:1.7;">Tarifs adaptés à vos volumes, formats personnalisables, conditionnements à façon pour les grandes enseignes.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <span class="flex-shrink-0 w-5 h-px bg-or mt-3"></span>
+            <div>
+              <p class="font-sans font-medium text-white mb-1" style="font-size:13px;">Certification qualité</p>
+              <p class="font-sans font-light text-white/45" style="font-size:13px; line-height:1.7;">Production certifiée, traçabilité complète, fiches techniques conformes aux normes HACCP.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hidden md:block">
+        <div class="overflow-hidden" style="border-radius:2px; height:420px;">
+          <img src="brand_assets/photography/ambiance/slider-groupe-mas.png"
+               alt="Compagnie des Pâtissiers"
+               class="w-full h-full object-cover"
+               style="filter:brightness(0.75) saturate(0.9);" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FORMULAIRE CONTACT PRO -->
+<section id="contact-pro" class="bg-ivoire py-16 md:py-24 px-8 md:px-14 lg:px-20">
+  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20">
+
+    <div>
+      <p class="font-sans font-medium text-gris mb-4" style="font-size:11px; letter-spacing:0.10em; text-transform:uppercase;">Prise de contact</p>
+      <h2 class="font-display text-noir mb-4" style="font-size:clamp(26px,4vw,40px); letter-spacing:-0.02em; line-height:1.15;">
+        Une question,<br><em>une demande ?</em>
+      </h2>
+      <span class="accent-line mb-8"></span>
+      <p class="font-sans font-light text-gris mb-8" style="font-size:15px; line-height:1.8;">
+        Tarifs, échantillons, référencement, accompagnement technique — notre équipe commerciale vous répond sous 24h ouvrées.
+      </p>
+      <div class="space-y-3">
+        <p class="font-sans font-light text-gris" style="font-size:13px; line-height:1.7;">
+          <span class="font-medium text-noir">Email —</span> <a href="mailto:contact@compagniedespatissiers.fr" class="text-noir border-b border-or pb-px">contact@compagniedespatissiers.fr</a>
+        </p>
+        <p class="font-sans font-light text-gris" style="font-size:13px; line-height:1.7;">
+          <span class="font-medium text-noir">Adresse —</span> 170, 2e Avenue ZAC St Charles, 13710 Fuveau
+        </p>
+        <p class="font-sans font-light text-gris" style="font-size:13px; line-height:1.7;">
+          <span class="font-medium text-noir">Horaires —</span> Lundi–vendredi, 8h–18h
+        </p>
+      </div>
+    </div>
+
+    <form action="mailto:contact@compagniedespatissiers.fr" method="POST" enctype="text/plain" class="space-y-5">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="form-label" for="prenom">Prénom</label>
+          <input class="form-input" type="text" id="prenom" name="prenom" placeholder="Charlotte" required />
+        </div>
+        <div>
+          <label class="form-label" for="nom">Nom</label>
+          <input class="form-input" type="text" id="nom" name="nom" placeholder="Durand" required />
+        </div>
+      </div>
+      <div>
+        <label class="form-label" for="entreprise">Établissement</label>
+        <input class="form-input" type="text" id="entreprise" name="entreprise" placeholder="Boulangerie Durand" />
+      </div>
+      <div>
+        <label class="form-label" for="email">Adresse e-mail</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="contact@boulangerie.fr" required />
+      </div>
+      <div>
+        <label class="form-label" for="telephone">Téléphone</label>
+        <input class="form-input" type="tel" id="telephone" name="telephone" placeholder="+33 6 00 00 00 00" />
+      </div>
+      <div>
+        <label class="form-label" for="sujet">Objet de la demande</label>
+        <select class="form-input" id="sujet" name="sujet">
+          <option value="">Sélectionner…</option>
+          <option>Demande de tarifs</option>
+          <option>Demande d'échantillons</option>
+          <option>Référencement distributeur</option>
+          <option>Accompagnement technique</option>
+          <option>Autre</option>
+        </select>
+      </div>
+      <div>
+        <label class="form-label" for="message">Message</label>
+        <textarea class="form-input" id="message" name="message" rows="4" placeholder="Décrivez votre besoin…"></textarea>
+      </div>
+      <button type="submit" class="btn-primary w-full text-center" style="padding:14px 28px;">Envoyer la demande →</button>
+      <p class="font-sans font-light text-gris" style="font-size:11px; line-height:1.6;">
+        Vos données sont traitées dans le respect du RGPD. Voir nos <a href="mentions-legales.html" class="border-b border-gris/40">mentions légales</a>.
+      </p>
+    </form>
+
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="bg-noir px-8 md:px-14 lg:px-20" style="border-top:0.5px solid rgba(255,255,255,0.06);">
+  <div class="max-w-5xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-8 md:gap-12 py-12 md:py-14" style="border-bottom:0.5px solid rgba(255,255,255,0.08);">
+      <div class="md:col-span-1">
+        <img src="brand_assets/logos/logo.png" alt="Compagnie des Pâtissiers" class="h-12 w-12 mb-5 object-contain" style="filter:invert(1);" />
+        <p class="font-sans font-medium text-white mb-1" style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase;">Compagnie des Pâtissiers</p>
+        <p class="font-sans font-light text-gris text-sm">L'artisan à grande échelle</p>
+        <p class="font-sans font-light text-gris mt-3" style="font-size:12px;">Filiale du Groupe MAS<br>French Quality Food</p>
+      </div>
+      <div>
+        <p class="font-sans font-medium text-gris mb-5" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Gammes</p>
+        <ul class="space-y-3">
+          <li><a href="nos-gammes.html#flans-crus"     class="footer-link">Flans crus</a></li>
+          <li><a href="nos-gammes.html#fonds-de-tarte" class="footer-link">Fonds de tarte</a></li>
+          <li><a href="nos-gammes.html#clafoutis-crus" class="footer-link">Clafoutis crus</a></li>
+          <li><a href="nos-gammes.html"                class="footer-link">Bake-off</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-sans font-medium text-gris mb-5" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Navigation</p>
+        <ul class="space-y-3">
+          <li><a href="index.html#positionnement"      class="footer-link">Qui sommes-nous</a></li>
+          <li><a href="nos-patissiers.html"            class="footer-link">Notre équipe</a></li>
+          <li><a href="index.html#innovation"          class="footer-link">Innovation</a></li>
+          <li><a href="mentions-legales.html"          class="footer-link">Mentions légales</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-sans font-medium text-gris mb-5" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Contact</p>
+        <p class="font-sans font-light text-gris text-sm mb-4" style="line-height:1.7;">Professionnels &amp; distributeurs<br>Du lundi au vendredi, 8h–18h</p>
+        <a href="mailto:contact@compagniedespatissiers.fr" class="link-or text-white/70" style="font-size:11px;">Nous écrire →</a>
+      </div>
+    </div>
+    <div class="py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+      <p class="font-sans font-light text-gris" style="font-size:12px;">© 2025 Compagnie des Pâtissiers — Tous droits réservés</p>
+      <p class="font-sans font-light text-gris" style="font-size:12px;">Une marque du <span class="text-white/40">Groupe MAS</span></p>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+menuToggle.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  menuToggle.setAttribute('aria-expanded', String(isOpen));
+});
+mobileMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+</script>
+
+</body>
+</html>
