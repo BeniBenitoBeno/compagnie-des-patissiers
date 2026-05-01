@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mentions légales — Compagnie des Pâtissiers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { noir:'#1A1A18', ivoire:'#F7F4EE', gris:'#6B6860', or:'#F2C94C' },
+          fontFamily: { display:['"Playfair Display"','serif'], sans:['Inter','sans-serif'] },
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Inter',sans-serif; background:#F7F4EE; color:#1A1A18; -webkit-font-smoothing:antialiased; }
+
+    #nav { background:rgba(26,26,24,0.96); backdrop-filter:blur(10px); }
+    .nav-link { font-family:'Inter',sans-serif; font-weight:500; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:rgba(247,244,238,0.75); transition:color 0.2s ease; }
+    .nav-link:hover { color:#F7F4EE; }
+    .nav-link:focus-visible { outline:1.5px solid #F2C94C; outline-offset:4px; border-radius:1px; }
+
+    #mobile-menu { background:rgba(26,26,24,0.97); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); transform:translateY(-8px); opacity:0; pointer-events:none; transition:transform 0.25s ease, opacity 0.2s ease; }
+    #mobile-menu.open { transform:translateY(0); opacity:1; pointer-events:auto; }
+
+    .footer-link { font-family:'Inter',sans-serif; font-weight:300; font-size:13px; color:rgba(247,244,238,0.5); transition:color 0.2s ease; }
+    .footer-link:hover { color:rgba(247,244,238,0.9); }
+    .link-or { font-family:'Inter',sans-serif; font-weight:500; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; border-bottom:1px solid #F2C94C; padding-bottom:1px; transition:opacity 0.2s ease; }
+    .link-or:hover { opacity:0.65; }
+
+    .legal-h2 { font-family:'Inter',sans-serif; font-weight:500; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:#1A1A18; margin-top:2.5rem; margin-bottom:0.75rem; }
+    .legal-h3 { font-family:'Inter',sans-serif; font-weight:500; font-size:13px; color:#1A1A18; margin-top:1.5rem; margin-bottom:0.5rem; }
+    .legal-p  { font-family:'Inter',sans-serif; font-weight:300; font-size:14px; line-height:1.8; color:#6B6860; margin-bottom:1rem; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav" class="fixed top-0 left-0 right-0 z-50">
+  <div class="px-8 md:px-14 py-5 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="brand_assets/logos/logo.png" alt="Compagnie des Pâtissiers" class="h-9 w-9 object-contain" style="filter:invert(1);" />
+      <div class="leading-tight">
+        <span class="block font-sans font-medium text-white" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Compagnie des Pâtissiers</span>
+        <span class="block font-sans font-light text-white/40" style="font-size:9px; letter-spacing:0.06em; text-transform:uppercase;">Groupe MAS</span>
+      </div>
+    </a>
+    <ul class="hidden md:flex items-center gap-8">
+      <li><a href="index.html#positionnement" class="nav-link">Qui sommes-nous</a></li>
+      <li><a href="nos-gammes.html"            class="nav-link">Nos gammes</a></li>
+      <li><a href="index.html#innovation"      class="nav-link">Innovation</a></li>
+      <li><a href="index.html#contact" class="nav-link px-4 py-2" style="border:0.5px solid rgba(247,244,238,0.25); border-radius:2px;">Contact</a></li>
+    </ul>
+    <button id="menu-toggle" class="md:hidden flex flex-col justify-center gap-[6px] w-8 h-8" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span class="block w-5 h-px bg-white/80"></span>
+      <span class="block w-5 h-px bg-white/80"></span>
+      <span class="block w-5 h-px bg-white/80"></span>
+    </button>
+  </div>
+  <div id="mobile-menu" class="md:hidden px-8 pb-7 flex flex-col gap-5">
+    <a href="index.html#positionnement" class="nav-link py-1">Qui sommes-nous</a>
+    <a href="nos-gammes.html"           class="nav-link py-1">Nos gammes</a>
+    <a href="index.html#innovation"     class="nav-link py-1">Innovation</a>
+    <a href="index.html#contact"        class="nav-link py-2 px-4 self-start" style="border:0.5px solid rgba(247,244,238,0.25); border-radius:2px;">Contact</a>
+  </div>
+</nav>
+
+
+<!-- PAGE HEADER -->
+<section class="bg-noir" style="padding-top:104px; padding-bottom:56px;">
+  <div class="max-w-3xl mx-auto px-8 md:px-14">
+    <p class="font-sans font-medium text-gris mb-6" style="font-size:11px; letter-spacing:0.07em; text-transform:uppercase;">
+      <a href="index.html" class="hover:text-white/60 transition-colors duration-200">Accueil</a>
+      <span class="mx-2 opacity-40">→</span>Mentions légales
+    </p>
+    <h1 class="font-display text-white" style="font-size:clamp(32px,5vw,52px); letter-spacing:-0.02em; line-height:1.08;">Mentions légales</h1>
+  </div>
+</section>
+
+
+<!-- CONTENU -->
+<section class="bg-white py-16 md:py-20 px-8 md:px-14">
+  <div class="max-w-3xl mx-auto">
+
+    <p class="font-display italic text-noir mb-10" style="font-size:clamp(18px,2.5vw,24px); line-height:1.4;">COMPAGNIE DES PATISSIERS SAS</p>
+
+    <p class="legal-p">Conformément aux dispositions des Articles 6-III et 19 de la Loi n°2004-575 du 21 juin 2004 pour la Confiance dans l'économie numérique, dite L.C.E.N., il est porté à la connaissance des utilisateurs et visiteurs du site Compagnie des Pâtissiers les présentes mentions légales.</p>
+    <p class="legal-p">Le site Compagnie des Pâtissiers est accessible à l'adresse suivante : www.compagniedespatissiers.fr (ci-après « le Site »). L'accès et l'utilisation du Site sont soumis aux présentes « Mentions légales » détaillées ci-après ainsi qu'aux lois et/ou règlements applicables.</p>
+    <p class="legal-p">La connexion, l'utilisation et l'accès à ce Site impliquent l'acceptation intégrale et sans réserve de l'internaute de toutes les dispositions des présentes Mentions Légales.</p>
+
+    <div style="width:32px; height:1px; background:#F2C94C; margin:2rem 0;"></div>
+
+    <p class="legal-h2">Article 1 — Informations légales</p>
+    <p class="legal-p">En vertu de l'Article 6 de la Loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, il est précisé dans cet article l'identité des différents intervenants dans le cadre de sa réalisation et de son suivi.</p>
+
+    <p class="legal-h3">a. Éditeur du site</p>
+    <p class="legal-p">Le site Compagnie des Pâtissiers est édité par :<br><br>
+      <strong class="font-medium text-noir">COMPAGNIE DES PATISSIERS SAS</strong><br>
+      Siège social : 170, 2e Avenue ZAC St Charles — 13710 FUVEAU<br>
+      SIRET : 401 193 701 00026<br>
+      E-mail : <a href="mailto:contact@compagniedespatissiers.fr" class="text-noir border-b border-or pb-px">contact@compagniedespatissiers.fr</a><br><br>
+      Ci-après « l'Éditeur ».
+    </p>
+
+    <p class="legal-h3">b. Hébergeur du site</p>
+    <p class="legal-p">Le site Compagnie des Pâtissiers est hébergé par :<br><br>
+      <strong class="font-medium text-noir">Altinea SAS</strong><br>
+      9 rue du Faubourg — 39570 Nogna — France<br>
+      +33 3 74 39 10 20<br><br>
+      Ci-après « l'Hébergeur ».
+    </p>
+
+    <p class="legal-h3">c. Utilisateurs du site</p>
+    <p class="legal-p">Sont considérés comme utilisateurs tous les internautes qui naviguent, lisent, visionnent et utilisent le site Compagnie des Pâtissiers. Ci-après les « Utilisateurs ».</p>
+
+    <div style="width:32px; height:1px; background:#F2C94C; margin:2rem 0;"></div>
+
+    <p class="legal-h2">Article 2 — Confidentialité</p>
+
+    <p class="legal-h3">a. Données collectées et traitées</p>
+    <p class="legal-p">Conformément aux dispositions de l'article 5 du Règlement européen 2016/679, la collecte et le traitement des données des utilisateurs du site respectent les principes suivants :</p>
+    <ul class="legal-p list-none space-y-2 pl-0" style="margin-bottom:1rem;">
+      <li style="padding-left:1.25rem; position:relative;"><span style="position:absolute;left:0;color:#F2C94C;">—</span><strong class="font-medium text-noir">Licéité, loyauté et transparence :</strong> les données ne peuvent être collectées et traitées qu'avec le consentement de l'utilisateur propriétaire des données.</li>
+      <li style="padding-left:1.25rem; position:relative;"><span style="position:absolute;left:0;color:#F2C94C;">—</span><strong class="font-medium text-noir">Finalités limitées :</strong> la collecte et le traitement des données sont exécutés pour répondre à un ou plusieurs objectifs déterminés dans les présentes mentions légales.</li>
+      <li style="padding-left:1.25rem; position:relative;"><span style="position:absolute;left:0;color:#F2C94C;">—</span><strong class="font-medium text-noir">Minimisation :</strong> seules les données nécessaires à la bonne exécution des objectifs poursuivis par le site sont collectées.</li>
+      <li style="padding-left:1.25rem; position:relative;"><span style="position:absolute;left:0;color:#F2C94C;">—</span><strong class="font-medium text-noir">Intégrité et confidentialité :</strong> le responsable du traitement s'engage à garantir l'intégrité et la confidentialité des données collectées.</li>
+      <li style="padding-left:1.25rem; position:relative;"><span style="position:absolute;left:0;color:#F2C94C;">—</span>Conservation des informations pour une durée indéterminée, destinées à communiquer dans le cadre d'une relation commerciale.</li>
+    </ul>
+    <p class="legal-p">Les données à caractère personnel collectées sur le site sont les suivantes :</p>
+    <ul class="legal-p list-none space-y-1 pl-0">
+      <li style="padding-left:1.25rem; position:relative;"><span style="position:absolute;left:0;color:#F2C94C;">—</span><strong class="font-medium text-noir">Inscription à la Newsletter :</strong> adresse e-mail</li>
+      <li style="padding-left:1.25rem; position:relative;"><span style="position:absolute;left:0;color:#F2C94C;">—</span><strong class="font-medium text-noir">Formulaire de contact :</strong> prénom, nom, adresse e-mail, numéro de téléphone</li>
+    </ul>
+
+    <p class="legal-h3">b. Droits de l'utilisateur</p>
+    <p class="legal-p">Conformément à la réglementation, l'Utilisateur dispose des droits suivants. Pour en faire usage, il doit communiquer ses prénom, nom et adresse e-mail au responsable du traitement.</p>
+
+    <p class="legal-h3">a. Droit d'accès, de rectification et droit à l'oubli</p>
+    <p class="legal-p">L'utilisateur peut prendre connaissance, mettre à jour, modifier ou demander la suppression de ses données en envoyant un e-mail au responsable du traitement à l'adresse indiquée ci-dessus.</p>
+
+    <p class="legal-h3">b. Droit à la portabilité</p>
+    <p class="legal-p">L'utilisateur peut demander la portabilité de ses données personnelles vers un autre site en adressant une demande par e-mail au responsable du traitement.</p>
+
+    <p class="legal-h3">c. Droit à la limitation et à l'opposition</p>
+    <p class="legal-p">L'utilisateur a le droit de demander la limitation ou de s'opposer au traitement de ses données par Compagnie des Pâtissiers.</p>
+
+    <p class="legal-h3">d. Droit de déterminer le sort des données après la mort</p>
+    <p class="legal-p">L'utilisateur peut organiser le devenir de ses données en cas de décès, conformément à la loi n°2016-1321 du 7 octobre 2016.</p>
+
+    <p class="legal-h3">e. Droit de saisir l'autorité de contrôle</p>
+    <p class="legal-p">En cas de non-réponse du responsable du traitement, l'utilisateur peut saisir la <a href="https://www.cnil.fr" target="_blank" rel="noopener" class="text-noir border-b border-or pb-px">CNIL</a> ou tout juge compétent.</p>
+
+    <p class="legal-h3">f. Obligations du responsable du traitement</p>
+    <p class="legal-p">Le responsable du traitement s'engage à protéger les données collectées, à ne pas les transmettre à des tiers sans information préalable de l'utilisateur et à respecter les finalités de collecte. Le site dispose d'un certificat SSL garantissant la sécurité des transferts de données.</p>
+
+    <p class="legal-h3">g. Cookies</p>
+    <p class="legal-p">Les paramètres de cookies peuvent être configurés depuis les réglages de votre navigateur.</p>
+
+    <div style="width:32px; height:1px; background:#F2C94C; margin:2rem 0;"></div>
+
+    <p class="legal-h2">Article 3 — Contact</p>
+    <p class="legal-p">Pour tout signalement de contenus ou d'activités illicites, l'Utilisateur peut contacter l'Éditeur à l'adresse : <a href="mailto:contact@compagniedespatissiers.fr" class="text-noir border-b border-or pb-px">contact@compagniedespatissiers.fr</a>, ou par courrier recommandé avec accusé de réception aux coordonnées précisées dans les présentes mentions légales.</p>
+    <p class="legal-p">Crédits photos : photocuisine.com · istock.com · Adrien Dubuisson, photographe.</p>
+    <p class="legal-p">Le site Compagnie des Pâtissiers vous souhaite une excellente navigation !</p>
+
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="bg-noir px-8 md:px-14 lg:px-20" style="border-top:0.5px solid rgba(255,255,255,0.06);">
+  <div class="max-w-5xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-8 md:gap-12 py-12 md:py-14" style="border-bottom:0.5px solid rgba(255,255,255,0.08);">
+      <div class="md:col-span-1">
+        <img src="brand_assets/logos/logo.png" alt="Compagnie des Pâtissiers" class="h-12 w-12 mb-5 object-contain" style="filter:invert(1);" />
+        <p class="font-sans font-medium text-white mb-1" style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase;">Compagnie des Pâtissiers</p>
+        <p class="font-sans font-light text-gris text-sm">L'artisan à grande échelle</p>
+        <p class="font-sans font-light text-gris mt-3" style="font-size:12px;">Filiale du Groupe MAS<br>French Quality Food</p>
+      </div>
+      <div>
+        <p class="font-sans font-medium text-gris mb-5" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Gammes</p>
+        <ul class="space-y-3">
+          <li><a href="nos-gammes.html#flans-crus"     class="footer-link">Flans crus</a></li>
+          <li><a href="nos-gammes.html#fonds-de-tarte" class="footer-link">Fonds de tarte</a></li>
+          <li><a href="nos-gammes.html#clafoutis-crus" class="footer-link">Clafoutis crus</a></li>
+          <li><a href="nos-gammes.html"                class="footer-link">Bake-off</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-sans font-medium text-gris mb-5" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Navigation</p>
+        <ul class="space-y-3">
+          <li><a href="index.html#positionnement" class="footer-link">Qui sommes-nous</a></li>
+          <li><a href="nos-patissiers.html"        class="footer-link">Notre équipe</a></li>
+          <li><a href="index.html#innovation"      class="footer-link">Innovation</a></li>
+          <li><a href="mentions-legales.html"      class="footer-link">Mentions légales</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-sans font-medium text-gris mb-5" style="font-size:10px; letter-spacing:0.10em; text-transform:uppercase;">Contact</p>
+        <p class="font-sans font-light text-gris text-sm mb-4" style="line-height:1.7;">Professionnels &amp; distributeurs<br>Du lundi au vendredi, 8h–18h</p>
+        <a href="mailto:contact@compagniedespatissiers.com" class="link-or text-white/70" style="font-size:11px;">Nous écrire →</a>
+      </div>
+    </div>
+    <div class="py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+      <p class="font-sans font-light text-gris" style="font-size:12px;">© 2025 Compagnie des Pâtissiers — Tous droits réservés</p>
+      <p class="font-sans font-light text-gris" style="font-size:12px;">Une marque du <span class="text-white/40">Groupe MAS</span></p>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+menuToggle.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  menuToggle.setAttribute('aria-expanded', String(isOpen));
+});
+mobileMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+</script>
+
+</body>
+</html>
