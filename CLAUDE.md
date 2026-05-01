@@ -89,4 +89,6 @@ Stay pragmatic. Stay reliable. Keep learning.
 
 ## Session Management
 
-À chaque fin de session ou avant auto-compact, mets à jour `workflows/project-status.md` avec les tâches accomplies, les corrections appliquées et le backlog restant.
+Surveille en continu le contexte restant. Dès que tu atteins 15% ou moins, termine la tâche ou la réponse en cours, puis exécute /compact immédiatement. 
+Ne jamais interrompre une tâche en milieu d'exécution pour compacter — attendre toujours la fin naturelle d'une réponse ou d'un bloc de travail.
+Après chaque compact, mets à jour workflows/project-status.md.
