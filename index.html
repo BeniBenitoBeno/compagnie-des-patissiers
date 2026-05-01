@@ -49,6 +49,10 @@
     }
     .nav-link:hover  { color: #F7F4EE; }
     .nav-link:focus-visible { outline: 1.5px solid #F2C94C; outline-offset: 4px; border-radius: 1px; }
+    .nav-link { position: relative; }
+    .nav-link::after { content:''; position:absolute; bottom:-4px; left:0; width:100%; height:1px; background:#F2C94C; transform:scaleX(0); transform-origin:left center; transition:transform 0.22s ease; }
+    .nav-link:hover::after, .nav-link.current::after { transform:scaleX(1); }
+    .nav-link.px-4::after { display:none; }
 
     /* ── Mobile menu ── */
     #mobile-menu {
@@ -236,7 +240,7 @@
 
   <div class="relative z-10 h-full flex flex-col justify-end px-8 md:px-14 lg:px-20 pb-16 md:pb-20">
     <div class="max-w-2xl">
-      <p class="font-sans font-medium text-or mb-5"
+      <p class="font-sans font-medium text-white/50 mb-5"
          style="font-size:11px; letter-spacing:0.10em; text-transform:uppercase;">
         Depuis 1995
       </p>
@@ -447,7 +451,7 @@
 
       <!-- Flan Pistache -->
       <div class="group flex flex-col">
-        <a href="nos-gammes.html#flans-crus" class="block relative overflow-hidden mb-5" style="height:260px; border-radius:2px;">
+        <a href="nos-gammes.html#flans-crus" class="card block relative overflow-hidden mb-5" style="height:260px; border-radius:2px;">
           <img src="brand_assets/photography/products/flans-crus/flan-pistache.png"
                alt="Flan Pistache"
                class="card-img w-full h-full object-cover" />
@@ -462,7 +466,7 @@
 
       <!-- Flan à l'ancienne -->
       <div class="group flex flex-col">
-        <a href="nos-gammes.html#flans-crus" class="block relative overflow-hidden mb-5" style="height:260px; border-radius:2px;">
+        <a href="nos-gammes.html#flans-crus" class="card block relative overflow-hidden mb-5" style="height:260px; border-radius:2px;">
           <img src="brand_assets/photography/products/flans-crus/flan-a-lancienne.png"
                alt="Flan à l'ancienne"
                class="card-img w-full h-full object-cover" />
@@ -477,7 +481,7 @@
 
       <!-- Couronne -->
       <div class="group flex flex-col">
-        <a href="nos-gammes.html#fonds-de-tarte" class="block relative overflow-hidden mb-5" style="height:260px; border-radius:2px;">
+        <a href="nos-gammes.html#fonds-de-tarte" class="card block relative overflow-hidden mb-5" style="height:260px; border-radius:2px;">
           <img src="brand_assets/photography/products/fonds-de-tarte/couronne.png"
                alt="La Couronne"
                class="card-img w-full h-full object-cover" />
@@ -634,11 +638,27 @@
 
 
 <script>
-  // Scroll nav
+  // Scroll nav + current link
   const nav = document.getElementById('nav');
+  const navLinks = {
+    positionnement: document.querySelector('.nav-link[href="#positionnement"]'),
+    innovation:     document.querySelector('.nav-link[href="#innovation"]'),
+    gammes:         document.querySelector('.nav-link[href="nos-gammes.html"]'),
+  };
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 60);
   }, { passive: true });
+  const sections = [
+    { el: document.getElementById('positionnement'), link: navLinks.positionnement },
+    { el: document.getElementById('innovation'),     link: navLinks.innovation },
+  ];
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      const match = sections.find(s => s.el === e.target);
+      if (match) match.link.classList.toggle('current', e.isIntersecting);
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => { if (s.el) spy.observe(s.el); });
 
   // Hamburger mobile
   const menuToggle = document.getElementById('menu-toggle');
